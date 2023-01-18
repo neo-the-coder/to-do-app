@@ -1,5 +1,8 @@
 .wrapper {
 	margin: 20px auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 	.categoryFilter {
 		display: flex;
 		flex-direction: column;
