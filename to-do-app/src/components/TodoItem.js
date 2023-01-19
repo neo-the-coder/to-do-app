@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React, { useState } from 'react'
 import styles from '../styles/TodoItem.module.scss';
 import TaskWindow from './TaskWindow';
@@ -12,7 +13,7 @@ function TodoItem( {todo, taskWindowOpen, setTaskWindowOpen} ) {
           <div className={styles.checkbox}>[x]</div>
           <p className={styles.task}>{todo.task}</p>
           <div className={styles.time}>
-            {todo.due}
+            {format(new Date(todo.due), 'dd LLL yyyy HH:mm')}
             {/* <p className={styles.time}>
               {format(new Date(todo.time), 'dd/MM/yyyy, HH:mm')}
             </p> */}

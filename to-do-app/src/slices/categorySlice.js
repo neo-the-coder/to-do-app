@@ -6,16 +6,19 @@ const getRandomColor = () => "#" + Math.floor(Math.random()*16777215).toString(1
 const initValue = {
   categoriesList: [
     {
+      id: 1,
       name: "work",
       color: getRandomColor(),
       count: 0,
     },
     {
+      id: 2,
       name: "health",
       color: getRandomColor(),
       count: 0,
     },
     {
+      id: 3,
       name: "payment",
       color: getRandomColor(),
       count: 0,
@@ -28,13 +31,21 @@ const categorySlice = createSlice({
     initialState: initValue,
     reducers: {
         addCategory: (state, action) => {
-            return [
-                ...state,
+            return {
+              ...state,
+              categoriesList: [
+                ...state.categoriesList,
                 action.payload,
-            ];
+              ],
+            };
         },
         addCount: (state, action) => {
-            return state.categoriesList.map((category) => category.name === action.payload.name ? {...state, count: category.count + 1} : category);
+          return {
+            ...state,
+            categoriesList: state.categoriesList.map((category) => {
+              return category.name === action.payload.name ? {...category, count: category.count + 1} : category
+            })
+          };
         },
         // updateTodo: (state, action) => {
         //     return state.todoList.map(todo => {
