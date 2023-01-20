@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { v4 as uuid } from 'uuid';
-//import { MdOutlineClose } from 'react-icons/md';
+import { MdOutlineClose } from 'react-icons/md';
 //import { useDispatch } from 'react-redux';
 //import toast from 'react-hot-toast';
 //import { addTodo, updateTodo } from '../slices/todoSlice';
@@ -114,7 +114,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
               tabIndex={0}
               role="button"
             >
-              [x]{/* <MdOutlineClose /> */}
+              <MdOutlineClose />
             </div>
             <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
               <h1 className={styles.formTitle}>

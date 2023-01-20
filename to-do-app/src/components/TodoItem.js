@@ -1,10 +1,16 @@
 import { format } from 'date-fns';
 import React, { useState } from 'react'
+import { deleteTodo } from '../slices/todoSlice';
 import styles from '../styles/TodoItem.module.scss';
+import ConfirmationBox from './ConfirmationBox';
 import TaskWindow from './TaskWindow';
 
-function TodoItem( {todo, taskWindowOpen, setTaskWindowOpen} ) {
+function TodoItem( {todo} ) {
   const [openUpdate, setOpenUpdate] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
+
+  const handleUpdate = () => setOpenUpdate(true);
+  const handleDelete = () => setOpenConfirm(true);
 
   return (
     <>
@@ -14,16 +20,13 @@ function TodoItem( {todo, taskWindowOpen, setTaskWindowOpen} ) {
           <p className={styles.task}>{todo.task}</p>
           <div className={styles.time}>
             {format(new Date(todo.due), 'dd LLL yyyy HH:mm')}
-            {/* <p className={styles.time}>
-              {format(new Date(todo.time), 'dd/MM/yyyy, HH:mm')}
-            </p> */}
           </div>
           <hr />
           <div className={styles.todoButtons}>
             <div
               className={styles.button}
-              //onClick={handleDelete}
-              //onKeyDown={handleDelete}
+              onClick={handleDelete}
+              onKeyDown={handleDelete}
               tabIndex={0}
               role="button"
             >
@@ -31,8 +34,8 @@ function TodoItem( {todo, taskWindowOpen, setTaskWindowOpen} ) {
             </div>
             <div
               className={styles.button}
-              onClick={() => setOpenUpdate(true)}
-              onKeyDown={() => setOpenUpdate(true)}
+              onClick={handleUpdate}
+              onKeyDown={handleUpdate}
               role="button"
               tabIndex={0}
             >
@@ -42,6 +45,7 @@ function TodoItem( {todo, taskWindowOpen, setTaskWindowOpen} ) {
         </div>
       </div>
       <TaskWindow todo={todo} type="update" taskWindowOpen={openUpdate} setTaskWindowOpen={setOpenUpdate} />
+      <ConfirmationBox delItem={todo.id} delAction={deleteTodo} openConfirm={openConfirm} setOpenConfirm={setOpenConfirm} />
     </>
   );
 }
