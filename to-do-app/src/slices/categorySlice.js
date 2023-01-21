@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {v4 as uuid} from 'uuid';
 
-const getRandomColor = () => "#" + Math.floor(Math.random()*16777215).toString(16);
-
-
 const initValue = {
   categoriesList: [
     {
@@ -52,8 +49,8 @@ const categorySlice = createSlice({
         ...state,
         categoriesList: state.categoriesList.map((category) => {
           return category.id === action.payload.id
-          ? { ...category, ...action.payload }
-          : category;
+            ? { ...category, ...action.payload }
+            : category;
         }),
       };
     },
@@ -62,25 +59,20 @@ const categorySlice = createSlice({
         ...state,
         categoriesList: state.categoriesList.filter(
           (category) =>
-          category.id !== action.payload || action.payload === "miscellaneous"
-          ),
-        };
-      },
-      addCount: (state, action) => {
-        return {
-          ...state,
-          categoriesList: state.categoriesList.map((category) => {
-            return category.name === action.payload.name
-              ? { ...category, count: category.count + 1 }
-              : category;
-          }),
-        };
-      },
-      // updateTodo: (state, action) => {
-        //     return state.todoList.map(todo => {
-          //         return todo.id === action.payload.id ? action.payload : todo;
-          //     })
-          // }
+            category.id !== action.payload || action.payload === "miscellaneous"
+        ),
+      };
+    },
+    addCount: (state, action) => {
+      return {
+        ...state,
+        categoriesList: state.categoriesList.map((category) => {
+          return category.name === action.payload
+            ? { ...category, count: category.count + 1 }
+            : category;
+        }),
+      };
+    },
   },
 });
 

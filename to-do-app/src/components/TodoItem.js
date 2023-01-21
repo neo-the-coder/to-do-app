@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import React, { useState } from 'react'
+import { BsCheck2Square, BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { deleteTodo } from '../slices/todoSlice';
 import styles from '../styles/TodoItem.module.scss';
 import ConfirmationBox from './ConfirmationBox';
@@ -16,7 +17,9 @@ function TodoItem( {todo} ) {
     <>
       <div className={styles.todoItem}>
         <div className={styles.todoDetails}>
-          <div className={styles.checkbox}>[x]</div>
+          <div className={styles.checkbox}>
+            <BsCheck2Square />
+          </div>
           <p className={styles.task}>{todo.task}</p>
           <div className={styles.time}>
             {format(new Date(todo.due), 'dd LLL yyyy HH:mm')}
@@ -30,7 +33,7 @@ function TodoItem( {todo} ) {
               tabIndex={0}
               role="button"
             >
-              Delete{/* <MdDelete /> */}
+              <BsTrash />
             </div>
             <div
               className={styles.button}
@@ -39,7 +42,7 @@ function TodoItem( {todo} ) {
               role="button"
               tabIndex={0}
             >
-              Edit{/* <MdEdit /> */}
+              <BsPencilSquare />
             </div>
           </div>
         </div>

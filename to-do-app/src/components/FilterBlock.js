@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../styles/FilterBlock.module.scss';
 import Categories from './Categories';
+import TaskStatus from './TaskStatus';
 
 function FilterBlock() {
   return (
@@ -8,7 +9,9 @@ function FilterBlock() {
       <div className={styles.categoryFilter}>
         <Categories />
       </div>
-      <div className={styles.taskSwitch}>Completed / Uncompleted Switch</div>
+      <div className={styles.taskSwitch}>
+        <TaskStatus />
+      </div>
     </div>
   );
 }

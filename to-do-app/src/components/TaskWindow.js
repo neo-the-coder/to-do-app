@@ -8,6 +8,7 @@ import styles from '../styles/TaskWindow.module.scss';
 import {format, addMinutes } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, updateTodo } from '../slices/todoSlice';
+import { addCount } from '../slices/categorySlice';
 
 function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
     const categoryList = useSelector(state => state.category.categoriesList);
@@ -57,9 +58,10 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
           category,
           task,
           due,
-          status: 'ongoing'
+          status: 'pending'
         }
         dispatch(addTodo(newTask));
+        dispatch(addCount(category));
       } else {
         const updatedTask = {
           ...todo,
