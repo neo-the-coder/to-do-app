@@ -5,7 +5,7 @@ const initValue = {
         id : 2,
         category: 'work',
         task : 'Some task to complete',
-        due: new Date(2022, 11, 5, 15, 43, 26).toLocaleString(),
+        due: '2022-11-05T16:43',
         status: 'pending',
     }]
 }

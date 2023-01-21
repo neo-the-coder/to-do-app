@@ -73,8 +73,18 @@ const categorySlice = createSlice({
         }),
       };
     },
+    subtractCount: (state, action) => {
+      return {
+        ...state,
+        categoriesList: state.categoriesList.map((category) => {
+          return category.name === action.payload
+            ? { ...category, count: category.count - 1 }
+            : category;
+        }),
+      };
+    },
   },
 });
 
-export const { addCategory, editCategory, deleteCategory, addCount } = categorySlice.actions;
+export const { addCategory, editCategory, deleteCategory, addCount, subtractCount } = categorySlice.actions;
 export default categorySlice.reducer;

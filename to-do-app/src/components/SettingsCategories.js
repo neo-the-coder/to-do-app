@@ -5,9 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addCategory, editCategory, deleteCategory } from '../slices/categorySlice';
 import ConfirmationBox from './ConfirmationBox';
 import getTextColor from '../helpers/HexToHSL';
+import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 
 function Category({ category, handleEdit }) {
   const [openConfirm, setOpenConfirm] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleConfirmation = () => dispatch(deleteCategory(category.id));
+
   return (
     <>
       <div
@@ -24,7 +29,7 @@ function Category({ category, handleEdit }) {
                 : undefined
             }
           >
-            Edit
+              <BsPencilSquare />
           </button>
           <button
             disabled={category.name === "miscellaneous"}
@@ -34,13 +39,12 @@ function Category({ category, handleEdit }) {
                 : undefined
             }
           >
-            Del
+            <BsTrash />
           </button>
         </div>
       </div>
       <ConfirmationBox
-        delItem={category.id}
-        delAction={deleteCategory}
+        handleConfirmation={handleConfirmation}
         openConfirm={openConfirm}
         setOpenConfirm={setOpenConfirm}
       />
