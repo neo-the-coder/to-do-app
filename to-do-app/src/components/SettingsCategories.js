@@ -43,11 +43,8 @@ function Category({ category, handleEdit }) {
           </button>
         </div>
       </div>
-      <ConfirmationBox
-        handleConfirmation={handleConfirmation}
-        openConfirm={openConfirm}
-        setOpenConfirm={setOpenConfirm}
-      />
+      {/* optimize rendering by adding conditional state  */}
+      {openConfirm && <ConfirmationBox handleConfirmation={handleConfirmation} openConfirm={openConfirm} setOpenConfirm={setOpenConfirm} />}
     </>
   );
 }
@@ -55,6 +52,7 @@ function Category({ category, handleEdit }) {
 
 
 function SettingsCategories({openSettings, setOpenSettings}) {
+  console.log('SETTINGS')
   const categoryList = useSelector((state) => state.category.categoriesList);
   const dispatch = useDispatch();
 

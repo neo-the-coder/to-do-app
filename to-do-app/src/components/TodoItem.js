@@ -29,7 +29,7 @@ function TodoItem( {todo} ) {
           </div>
           <p className={styles.task}>{todo.task}</p>
           <div className={styles.time}>
-            {format(new Date(todo.due), 'dd LLL yyyy HH:mm')}
+            {todo.due ? format(new Date(todo.due), 'dd LLL yyyy HH:mm') : '-'}
           </div>
           <hr />
           <div className={styles.todoButtons}>
@@ -54,8 +54,9 @@ function TodoItem( {todo} ) {
           </div>
         </div>
       </div>
-      <TaskWindow todo={todo} type="update" taskWindowOpen={openUpdate} setTaskWindowOpen={setOpenUpdate} />
-      <ConfirmationBox handleConfirmation={handleConfirmation} openConfirm={openConfirm} setOpenConfirm={setOpenConfirm} />
+      {/* optimize rendering by adding conditional state  */}
+      {openUpdate && <TaskWindow todo={todo} type="update" taskWindowOpen={openUpdate} setTaskWindowOpen={setOpenUpdate} />}
+      {openConfirm && <ConfirmationBox handleConfirmation={handleConfirmation} openConfirm={openConfirm} setOpenConfirm={setOpenConfirm} />}
     </>
   );
 }

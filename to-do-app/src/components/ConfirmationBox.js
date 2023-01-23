@@ -1,6 +1,7 @@
 import React from 'react'
 
 function ConfirmationBox({handleConfirmation, openConfirm, setOpenConfirm}) {
+  console.log('CONFIRM')
 
   return (
     openConfirm && (

@@ -1,66 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
+import { useForm } from 'react-hook-form';
 import { MdOutlineClose } from "react-icons/md";
 //import toast from 'react-hot-toast';
 import styles from "../styles/TaskWindow.module.scss";
-import { format, addMinutes } from "date-fns";
+import { addMinutes } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo, updateTodo } from "../slices/todoSlice";
 import { addCount, subtractCount } from "../slices/categorySlice";
 import { dtToSlicedISO, dtTZFixed } from "../helpers/DateTimeValue";
 
 function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
-  // DateTime initial state values
-  const dtMin = dtToSlicedISO(dtTZFixed());
-  const initDueTime = dtToSlicedISO(addMinutes(dtTZFixed(), 30));
-
-  // State
-  const [task, setTask] = useState("");
-  const [due, setDue] = useState(initDueTime);
-  const [category, setCategory] = useState("miscellaneous");
+  console.log('TASK rendered')
   const categoryList = useSelector((state) => state.category.categoriesList);
   const dispatch = useDispatch();
+  const [dueToggle, setDueToggle] = useState(todo ? todo.dueOn : false);
 
-  useEffect(() => {
-    console.log("USEEFFECT");
-    if (type === "update" && todo) {
-      setTask(todo.task);
-      setDue(todo.due);
-      setCategory(todo.category);
-    } else {
-      setTask("");
-      setDue(initDueTime);
-      setCategory("miscellaneous");
-    }
-  }, [type, todo, taskWindowOpen, initDueTime]);
+  // DateTime initial state values
+  const dtMin = dtToSlicedISO(addMinutes(dtTZFixed(), 1));
+  const initDueTime = dtToSlicedISO(addMinutes(dtTZFixed(), 30));
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: "onSubmit",
+  });
+
+  //const dueToggle = watch("dueOn", todo ? todo.dueOn : false);
 
   const handleCancel = () => {
     setTaskWindowOpen(false);
+    reset();
+    setDueToggle(todo ? todo.dueOn : false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    //Don't add if task is empty
+  const onSubmit = (data) => {
+    //e.preventDefault();
+    console.log('Submitted', data)
     if (type === "add") {
       const newTask = {
         id: uuid(),
-        category,
-        task,
-        due,
+        category: data.category,
+        task: data.task,
+        dueOn: dueToggle,
+        due: dueToggle ? data.due : undefined,
         status: "pending",
       };
       dispatch(addTodo(newTask));
-      dispatch(addCount(category));
+      dispatch(addCount(data.category));
+      setDueToggle(false);
     } else {
       const updatedTask = {
         ...todo,
-        category,
-        task,
-        due,
+        task: data.task,
+        category: data.category,
+        dueOn: dueToggle,
+        due: dueToggle ? data.due : undefined,
       };
       dispatch(updateTodo(updatedTask));
-      if (todo.category !== category) {
-        dispatch(addCount(category));
+      if (todo.category !== data.category) {
+        dispatch(addCount(data.category));
         dispatch(subtractCount(todo.category));
       }
     }
@@ -69,7 +71,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
     //     return;
     //   }
     //   if (title && status) {
-    //     if (type === 'add') {
+    //     if (todo) {
     //       dispatch(
     //         addTodo({
     //           id: uuid(),
@@ -95,7 +97,8 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
     //   } else {
     //     toast.error("Title Shouldn't be empty");
     //   }
-    handleCancel();
+    setTaskWindowOpen(false);
+    reset();
   };
 
   return (
@@ -111,7 +114,77 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
           >
             <MdOutlineClose />
           </div>
-          <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+
+          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <h1 className={styles.formTitle}>
+              {type === "add" ? "Add" : "Update"} Task
+            </h1>
+
+            <label htmlFor="task">
+              Task
+              <input
+                type="text"
+                id="task"
+                autoFocus
+                defaultValue={todo ? todo.task : ""}
+                placeholder="Task"
+                {...register("task", {
+                  required: "Task name cannot be empty.",
+                })}
+              />
+            </label>
+            {<p className={styles.error}>{errors.task?.message}</p>}
+
+            <label htmlFor="category">
+              Category
+              <select
+                id="category"
+                defaultValue={todo ? todo.category : "miscellaneous"}
+                {...register("category", { required: true })}
+              >
+                {categoryList.map((category) => (
+                  <option key={category.id} value={category.name} >
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label htmlFor="dueToggle">Set a deadline
+              <input type="checkbox" id="dueToggle" value={dueToggle} onChange={() => setDueToggle(!dueToggle)} checked={dueToggle} />
+            </label>
+            {dueToggle && (
+              <div>
+                <label htmlFor="deadline">
+                  Due date & time
+                  <input
+                    type="datetime-local"
+                    id="deadline"
+                    defaultValue={todo?.dueOn ? todo.due : initDueTime}
+                    {...register("due", {
+                      required:
+                        dueToggle && "Either set a deadline or disable it",
+                      min: {
+                        value: dtMin,
+                        message: "Deadline cannot be set in the past.",
+                      },
+                    })}
+                  />
+                </label>
+                {<p className={styles.error}>{errors.due?.message}</p>}
+              </div>
+            )}
+            <div className={styles.buttonContainer}>
+              <button type="submit">
+                {type === "add" ? "Add" : "Update"} Task
+              </button>
+              <button onClick={handleCancel} onKeyDown={handleCancel}>
+                Cancel
+              </button>
+            </div>
+          </form>
+
+          {/* <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
             <h1 className={styles.formTitle}>
               {type === "add" ? "Add" : "Update"} Task
             </h1>
@@ -158,7 +231,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
                 Cancel
               </button>
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     )

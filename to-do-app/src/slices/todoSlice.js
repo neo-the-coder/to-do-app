@@ -1,20 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initValue = {
-    todoList: [{
-        id : 2,
-        category: 'work',
-        task : 'Some task to complete',
-        due: '2022-11-05T16:43',
-        status: 'pending',
-    }]
-}
+  todoList: [
+    {
+      id: 2,
+      category: "work",
+      task: "Some task to complete",
+      dueOn: true,
+      due: "2022-11-05T16:43",
+      status: "pending",
+    },
+    {
+      id: 5,
+      category: "health",
+      task: "Bu sehir girdap",
+      due: "2028-11-05T16:43",
+      dueOn: false,
+      status: "pending",
+    },
+    {
+      id: 9,
+      category: "payment",
+      task: "Listen to me you little",
+      dueOn: true,
+      due: "2035-11-05T16:43",
+      status: "pending",
+    }
+  ],
+};
 
 const todoSlice = createSlice({
   name: "todo",
   initialState: initValue,
   reducers: {
     addTodo: (state, action) => {
+      console.log('Payload Add', action.payload)
       return {
         ...state,
         todoList: [...state.todoList, action.payload],

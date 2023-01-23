@@ -32,10 +32,8 @@ function Categories() {
       >
         <MdOutlineMoreHoriz />
       </div>
-      <SettingsCategories
-        openSettings={openSettings}
-        setOpenSettings={setOpenSettings}
-      />
+      {/* optimize rendering by adding conditional state  */}
+      { openSettings && <SettingsCategories openSettings={openSettings} setOpenSettings={setOpenSettings} />}
     </>
   );
 }
