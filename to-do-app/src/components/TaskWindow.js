@@ -54,7 +54,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
       setDueToggle(false);
     } else {
       const updatedTask = {
-        ...todo,
+        id: todo.id,
         task: data.task,
         category: data.category,
         dueOn: dueToggle,

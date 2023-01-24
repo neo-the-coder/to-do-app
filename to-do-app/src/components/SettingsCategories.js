@@ -3,10 +3,11 @@ import styles from '../styles/SettingsCategories.module.scss';
 import {v4 as uuid} from 'uuid';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
-import { addCategory, editCategory, deleteCategory } from '../slices/categorySlice';
+import { addCategory, editCategory, deleteCategory, addCount } from '../slices/categorySlice';
 import ConfirmationBox from './ConfirmationBox';
 import getTextColor from '../helpers/HexToHSL';
 import { BsPencilSquare, BsTrash, BsXSquare } from 'react-icons/bs';
+import { updateTodo } from '../slices/todoSlice';
 
 function SettingsCategories({ openSettings, setOpenSettings }) {
   const categoryList = useSelector((state) => state.category.categoriesList);
@@ -70,9 +71,36 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
 
   const [openConfirm, setOpenConfirm] = useState(false);
   //const [openOptions, setOpenOptions] = useState(false);
-
   const dispatch = useDispatch();
-  const handleConfirmation = () => dispatch(deleteCategory(category.id));
+  const todoList = useSelector(state => state.todo.todoList);
+  const message = (
+    <h2>
+      All tasks assigned to{" "}
+      <span
+        style={{ backgroundColor: category.color, color: category.textColor }}
+      >
+        "{category.name}"
+      </span>{" "}
+      will be moved to{" "}
+      <span style={{ backgroundColor: "#d4d4d4" }}>"miscellaneous"</span>
+    </h2>
+  );
+  
+  const handleConfirmation = () => {
+    dispatch(deleteCategory(category.id));
+    for (const todo of todoList) {
+      if (todo.category === category.name) {
+        dispatch(
+          updateTodo({
+            id: todo.id,
+            category: "miscellaneous",
+          })
+        );
+        dispatch(addCount("miscellaneous"));
+      }
+    }
+  };
+
   const handleUpdate = () => {
     setCategoryState(category);
     setOpenOptions(true);
@@ -121,6 +149,7 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
           handleConfirmation={handleConfirmation}
           openConfirm={openConfirm}
           setOpenConfirm={setOpenConfirm}
+          message={message}
         />
       )}
     </>
@@ -129,18 +158,10 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
 
 
 
-function CategoryOptions({categoryState, openOptions, setOpenOptions}) {
-  console.log('SETTINGS RENDERED')
+function CategoryOptions({ categoryState, openOptions, setOpenOptions }) {
+  console.log("SETTINGS RENDERED");
   const dispatch = useDispatch();
-  
-  //const [openOptions, setOpenOptions] = useState(false);
-  
-  // const [catID, setCatID] = useState(null);
-  //const [catTitle, setCatTitle] = useState();
-  // const [catColor, setCatColor] = useState("#ffffff");
-  //setCatTitle(categoryState ? categoryState.name : '');
-  // const [type, setType] = useState('Add');
-  
+
   const {
     register,
     handleSubmit,
@@ -149,20 +170,17 @@ function CategoryOptions({categoryState, openOptions, setOpenOptions}) {
   } = useForm({
     mode: "onSubmit",
   });
-  
+
   useEffect(() => {
-    console.log('USEEFFECT');
+    console.log("USEEFFECT");
     reset();
-  },[categoryState])
-  
-  const handleCancel = () => {
-    setOpenOptions(false);
-    //reset();
-  };
-  
+  }, [categoryState]);
+
+  const handleCancel = () => setOpenOptions(false);
+
   const onSubmit = (data) => {
     //e.preventDefault();
-    console.log('data added', data, categoryState)
+    console.log("data added", data, categoryState);
 
     if (!categoryState) {
       const newCategory = {
@@ -187,30 +205,11 @@ function CategoryOptions({categoryState, openOptions, setOpenOptions}) {
     handleCancel();
   };
 
-
-  // const handleUpdate = (category) => {
-  //   // setType('Update')
-  //   setOpenOptions(true);
-  //   // setCatID(category.id);
-  //   // setCatTitle(category.name);
-  //   // setCatColor(category.color);
-  // };
-
-  // const handleDelete = () => {
-  //   //dispatch(deleteCategory(id))
-
-  // }
-
-  // const handleAdd = () => {
-  //   setType('Add');
-  //   setOpenOptions(true);
-  // }
-  
   return (
     openOptions && (
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
-          <legend>{categoryState ? 'Update' : 'Add'} category </legend>
+          <legend>{categoryState ? "Update" : "Add"} category </legend>
           <label htmlFor="title">
             Title
             <input
@@ -218,9 +217,7 @@ function CategoryOptions({categoryState, openOptions, setOpenOptions}) {
               id="title"
               autoFocus
               placeholder="Add your category..."
-              defaultValue={categoryState ? categoryState.name : ''}
-              // value={catTitle}
-              // onChange={(e) => setCatTitle(e.target.value)}
+              defaultValue={categoryState ? categoryState.name : ""}
               {...register("title", {
                 required: "Category title cannot be empty.",
               })}
@@ -232,9 +229,7 @@ function CategoryOptions({categoryState, openOptions, setOpenOptions}) {
             <input
               type="color"
               id="color"
-              defaultValue={categoryState ? categoryState.color : '#ffffff'}
-              // value={catColor}
-              // onChange={(e) => setCatColor(e.target.value)}
+              defaultValue={categoryState ? categoryState.color : "#ffffff"}
               {...register("color", { required: true })}
             />
           </label>
@@ -244,32 +239,6 @@ function CategoryOptions({categoryState, openOptions, setOpenOptions}) {
           </div>
         </fieldset>
       </form>
-
-      /* <form className={styles.form} onSubmit={handleSubmit}>
-                <label htmlFor="title">
-                  Title
-                  <input
-                    type="text"
-                    id="title"
-                    autoFocus
-                    value={catTitle}
-                    onChange={(e) => setCatTitle(e.target.value)}
-                  />
-                </label>
-                <label htmlFor="color">
-                  Color
-                  <input
-                    type="color"
-                    id="color"
-                    value={catColor}
-                    onChange={(e) => setCatColor(e.target.value)}
-                  />
-                </label>
-                <div className={styles.buttonContainer}>
-                  <button type="submit">Save</button>
-                  <button onClick={handleCancel}>Cancel</button>
-                </div>
-              </form> */
     )
   );
 }

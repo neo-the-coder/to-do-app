@@ -56,7 +56,7 @@ function TodoItem( {todo} ) {
       </div>
       {/* optimize rendering by adding conditional state  */}
       {openUpdate && <TaskWindow todo={todo} type="update" taskWindowOpen={openUpdate} setTaskWindowOpen={setOpenUpdate} />}
-      {openConfirm && <ConfirmationBox handleConfirmation={handleConfirmation} openConfirm={openConfirm} setOpenConfirm={setOpenConfirm} />}
+      {openConfirm && <ConfirmationBox message={<h2>It will be gone forever</h2>} handleConfirmation={handleConfirmation} openConfirm={openConfirm} setOpenConfirm={setOpenConfirm} />}
     </>
   );
 }

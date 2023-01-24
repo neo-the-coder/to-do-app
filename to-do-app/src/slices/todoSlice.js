@@ -53,7 +53,7 @@ const todoSlice = createSlice({
       return {
         ...state,
         todoList: state.todoList.map((todo) => {
-          return todo.id === action.payload.id ? action.payload : todo;
+          return todo.id === action.payload.id ? {...todo, ...action.payload} : todo;
         }),
       };
     },
