@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../styles/SettingsCategories.module.scss';
 import {v4 as uuid} from 'uuid';
 import { useForm } from 'react-hook-form';
@@ -13,11 +13,11 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
   console.log("CATEGORY OPTIONS RENDERED");
   const [openOptions, setOpenOptions] = useState(false);
   const [categoryState, setCategoryState] = useState(null);
-  
+
   const handleAdd = () => {
     setCategoryState(null);
     setOpenOptions(true);
-  }
+  };
   return (
     openSettings && (
       <div className={styles.wrapper}>
@@ -33,27 +33,34 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
           </div>
           <h1>CATEGORIES</h1>
           <div className={styles.catPanel}>
-            <div className={styles.categoryList}>
-              {categoryList.map((category) => (
-                <CategoryList key={category.id} category={category} setCategoryState={setCategoryState} setOpenOptions={setOpenOptions}/>
-              ))}
+            <div className={styles.catNButtons}>
+              <div className={styles.categoryList}>
+                {categoryList.map((category) => (
+                  <CategoryList
+                    key={category.id}
+                    category={category}
+                    setCategoryState={setCategoryState}
+                    setOpenOptions={setOpenOptions}
+                  />
+                ))}
+              </div>
+              <button onClick={handleAdd}>Add more</button>
             </div>
-            <button onClick={handleAdd}>Add more</button>
+            <div className={styles.options}>
+              {openOptions ? (
+                <CategoryOptions
+                  openOptions={openOptions}
+                  setOpenOptions={setOpenOptions}
+                  categoryState={categoryState}
+                  setCategoryState={setCategoryState}
+                />
+              ) : (
+                <p>Select a category to edit or add a new one</p>
+              )}
+            </div>
           </div>
-          <div className={styles.options}>
-            {openOptions ? (
-              <CategoryOptions
-                openOptions={openOptions}
-                setOpenOptions={setOpenOptions}
-                categoryState={categoryState}
-                setCategoryState={setCategoryState}
-              />
-            ) : (
-              <p>Select a category to edit or add a new one</p>
-            )}
-          </div>
+        </div>
       </div>
-    </div>
     )
   );
 }
@@ -67,8 +74,8 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
   const dispatch = useDispatch();
   const handleConfirmation = () => dispatch(deleteCategory(category.id));
   const handleUpdate = () => {
-    setOpenOptions(true);
     setCategoryState(category);
+    setOpenOptions(true);
   };
 
   return (
@@ -122,16 +129,16 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
 
 
 
-function CategoryOptions({categoryState, setCategoryState, openOptions, setOpenOptions}) {
+function CategoryOptions({categoryState, openOptions, setOpenOptions}) {
   console.log('SETTINGS RENDERED')
   const dispatch = useDispatch();
-
-  //const [openOptions, setOpenOptions] = useState(false);
-
-  // const [catID, setCatID] = useState(null);
-  // const [catTitle, setCatTitle] = useState("");
-  // const [catColor, setCatColor] = useState("#ffffff");
   
+  //const [openOptions, setOpenOptions] = useState(false);
+  
+  // const [catID, setCatID] = useState(null);
+  //const [catTitle, setCatTitle] = useState();
+  // const [catColor, setCatColor] = useState("#ffffff");
+  //setCatTitle(categoryState ? categoryState.name : '');
   // const [type, setType] = useState('Add');
   
   const {
@@ -143,38 +150,38 @@ function CategoryOptions({categoryState, setCategoryState, openOptions, setOpenO
     mode: "onSubmit",
   });
   
+  useEffect(() => {
+    console.log('USEEFFECT');
+    reset();
+  },[categoryState])
   
   const handleCancel = () => {
     setOpenOptions(false);
-    setCategoryState(null);
-    reset();
-    // setCatID(null);
-    // setCatTitle("");
-    // setCatColor("#ffffff");
+    //reset();
   };
   
   const onSubmit = (data) => {
     //e.preventDefault();
-    console.log('data added', data)
-    // if (!catID) {
-    //   // Validate if name is not empty
-    //   const newCategory = {
-    //     id: uuid(),
-    //     name: catTitle,
-    //     color: catColor,
-    //     textColor: getTextColor(catColor),
-    //     count: 0,
-    //   };
-    //   dispatch(addCategory(newCategory));
-    // } else {
-    //   const editedCategory = {
-    //     id: catID,
-    //     name: catTitle,
-    //     color: catColor,
-    //     textColor: getTextColor(catColor),
-    //   };
-    //   dispatch(editCategory(editedCategory));
-    // }
+    console.log('data added', data, categoryState)
+
+    if (!categoryState) {
+      const newCategory = {
+        id: uuid(),
+        name: data.title,
+        color: data.color,
+        textColor: getTextColor(data.color),
+        count: 0,
+      };
+      dispatch(addCategory(newCategory));
+    } else {
+      const editedCategory = {
+        id: categoryState.id,
+        name: data.title,
+        color: data.color,
+        textColor: getTextColor(data.color),
+      };
+      dispatch(editCategory(editedCategory));
+    }
 
     // Setting default values after save
     handleCancel();
@@ -198,12 +205,12 @@ function CategoryOptions({categoryState, setCategoryState, openOptions, setOpenO
   //   setType('Add');
   //   setOpenOptions(true);
   // }
-
+  
   return (
     openOptions && (
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
-          <legend>{categoryState ? 'Update' : 'Add'} category {categoryState?.name}</legend>
+          <legend>{categoryState ? 'Update' : 'Add'} category </legend>
           <label htmlFor="title">
             Title
             <input
