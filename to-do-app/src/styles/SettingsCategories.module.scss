@@ -17,9 +17,9 @@
 	width: 90%;
     height: 35%;
 	margin: 0 auto;
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
+	// display: flex;
+	// justify-content: center;
+	// align-items: flex-start;
 	padding: 2rem;
 	border-radius: 8px;
 	position: relative;
@@ -45,10 +45,14 @@
 		color: white;
 	}
 }
-.list {
-    button {
-        //margin-top: auto !important;
-    }
+.catPanel {
+	display: flex;
+}
+
+.categoryList {
+    //display: flex;
+	width: 65%;
+
 }
 
 .category {

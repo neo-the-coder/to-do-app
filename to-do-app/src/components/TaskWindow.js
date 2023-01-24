@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useForm } from 'react-hook-form';
-import { MdOutlineClose } from "react-icons/md";
 //import toast from 'react-hot-toast';
 import styles from "../styles/TaskWindow.module.scss";
 import { addMinutes } from "date-fns";
@@ -9,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTodo, updateTodo } from "../slices/todoSlice";
 import { addCount, subtractCount } from "../slices/categorySlice";
 import { dtToSlicedISO, dtTZFixed } from "../helpers/DateTimeValue";
+import { BsXSquare } from "react-icons/bs";
 
 function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
   console.log('TASK rendered')
@@ -111,8 +111,8 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
             onKeyDown={handleCancel}
             tabIndex={0}
             role="button"
-          >
-            <MdOutlineClose />
+          >    
+            <BsXSquare />
           </div>
 
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -127,9 +127,9 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
                 id="task"
                 autoFocus
                 defaultValue={todo ? todo.task : ""}
-                placeholder="Task"
+                placeholder="What do you want to accomplish?"
                 {...register("task", {
-                  required: "Task name cannot be empty.",
+                  required: "Task description cannot be empty.",
                 })}
               />
             </label>
