@@ -8,6 +8,7 @@ import ConfirmationBox from './ConfirmationBox';
 import getTextColor from '../helpers/HexToHSL';
 import { BsPencilSquare, BsTrash, BsXSquare } from 'react-icons/bs';
 import { updateTodo } from '../slices/todoSlice';
+import { pickCategory } from '../slices/filterSlice';
 
 function SettingsCategories({ openSettings, setOpenSettings }) {
   const categoryList = useSelector((state) => state.category.categoriesList);
@@ -88,6 +89,7 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
   
   const handleConfirmation = () => {
     dispatch(deleteCategory(category.id));
+    dispatch(pickCategory({category: category.name}))
     for (const todo of todoList) {
       if (todo.category === category.name) {
         dispatch(

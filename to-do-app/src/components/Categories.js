@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { MdOutlineMoreHoriz } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux'
+import { allCategory, pickCategory } from '../slices/filterSlice';
 import styles from '../styles/Categories.module.scss';
 import SettingsCategories from './SettingsCategories';
 
@@ -8,17 +9,25 @@ function Categories() {
     const [openSettings, setOpenSettings] = useState(false);
     const categories = useSelector(state => state.category.categoriesList);
     const dispatch = useDispatch();
-
-    //addCategory, editCategory, deleteCategory. open window to do task 
+    const cLength = categories.length;
 
   return (
     <>
-      <button>ALL</button>
+      <button onClick={() => dispatch(allCategory())}>ALL</button>
       {categories.map((category) => (
         <button
           style={{ backgroundColor: category.color, color: category.textColor }}
           key={category.id}
+          onClick={() => {
+            dispatch(
+              pickCategory({
+                category: category.name,
+                cLength,
+              })
+            );
+          }}
         >
+          {cLength}
           {category.name}
           <span>{category.count}</span>
         </button>
@@ -33,7 +42,12 @@ function Categories() {
         <MdOutlineMoreHoriz />
       </div>
       {/* optimize rendering by adding conditional state  */}
-      { openSettings && <SettingsCategories openSettings={openSettings} setOpenSettings={setOpenSettings} />}
+      {openSettings && (
+        <SettingsCategories
+          openSettings={openSettings}
+          setOpenSettings={setOpenSettings}
+        />
+      )}
     </>
   );
 }
