@@ -10,10 +10,11 @@ function Categories() {
     const categories = useSelector(state => state.category.categoriesList);
     const dispatch = useDispatch();
     const cLength = categories.length;
+    const allTaskCount = categories.reduce((sum, category) => sum + category.count, 0);
 
   return (
     <>
-      <button onClick={() => dispatch(allCategory())}>ALL</button>
+      <button onClick={() => dispatch(allCategory())}>ALL<span>{allTaskCount}</span></button>
       {categories.map((category) => (
         <button
           style={{ backgroundColor: category.color, color: category.textColor }}

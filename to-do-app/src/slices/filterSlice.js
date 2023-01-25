@@ -33,8 +33,31 @@ const filterSlice = createSlice({
         };
       }
     },
+    pickStatus: (state, action) => {
+      if (!(state.status.length + 1 === 4)) {
+        return {
+          ...state,
+          status: state.status.includes(action.payload)
+            ? state.status.filter((st) => st !== action.payload)
+            : [...state.status, action.payload],
+        };
+      } else {
+        return {
+          ...state,
+          status: [],
+        };
+      }
+    },
+    allStatus: (state) => {
+      if (state.status.length !== 0) {
+        return {
+          ...state,
+          status: [],
+        };
+      }
+    },
   },
 });
 
-export const { pickCategory, allCategory } = filterSlice.actions;
+export const { pickCategory, allCategory, pickStatus, allStatus } = filterSlice.actions;
 export default filterSlice.reducer;

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { BsCheck2Square, BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { subtractCount } from '../slices/categorySlice';
-import { deleteTodo } from '../slices/todoSlice';
+import { deleteTodo, updateTodo } from '../slices/todoSlice';
 import styles from '../styles/TodoItem.module.scss';
 import ConfirmationBox from './ConfirmationBox';
 import TaskWindow from './TaskWindow';
@@ -19,17 +19,18 @@ function TodoItem( {todo} ) {
     dispatch(deleteTodo(todo.id));
     dispatch(subtractCount(todo.category));
   }
-
+  //let a = `linear-gradient(, ${todo.color}, white`;
   return (
     <>
-      <div className={styles.todoItem}>
+      <div className={styles.todoItem} style={{background: `linear-gradient(to top, orange, transparent)`}}>
         <div className={styles.todoDetails}>
-          <div className={styles.checkbox}>
+          <button className={styles.checkbox} onClick={() => dispatch(updateTodo({id: todo.id, status: 'accomplished'}))}>
             <BsCheck2Square />
-          </div>
+          </button>
           <p className={styles.task}>{todo.task}</p>
           <div className={styles.time}>
             {todo.due ? format(new Date(todo.due), 'dd LLL yyyy HH:mm') : '-'}
+            || {todo.status}
           </div>
           <hr />
           <div className={styles.todoButtons}>

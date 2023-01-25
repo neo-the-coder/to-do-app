@@ -57,6 +57,14 @@ const todoSlice = createSlice({
         }),
       };
     },
+    // updateTodoStatus: (state, action) => {
+    //   return {
+    //     ...state,
+    //     todoList: state.todoList.map(todo => {
+    //       return todo.id === action.payload.id ? {...todo, }
+    //     })
+    //   }
+    // }
   },
 });
 
