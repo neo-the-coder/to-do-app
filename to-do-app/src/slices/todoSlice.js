@@ -14,8 +14,8 @@ const initValue = {
       id: 5,
       category: "health",
       task: "Bu sehir girdap",
-      due: "2028-11-05T16:43",
       dueOn: false,
+      due: "unlimited",
       status: "pending",
     },
     {

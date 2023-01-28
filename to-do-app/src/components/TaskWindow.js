@@ -55,10 +55,11 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
     } else {
       const updatedTask = {
         id: todo.id,
-        task: data.task,
         category: data.category,
+        task: data.task,
         dueOn: dueToggle,
         due: dueToggle ? data.due : undefined,
+        status: "pending"
       };
       dispatch(updateTodo(updatedTask));
       if (todo.category !== data.category) {

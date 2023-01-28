@@ -12,10 +12,14 @@
 }
 .todoDetails {
   width: 100%;
+  // display: flex;
+  // align-items: center;
+  // justify-content: space-between;
+  // gap: 1rem;
+}
+
+.description {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
 }
 // .svgBox {
 //   flex-basis: 25px;
@@ -56,10 +60,10 @@
   color: black;
 }
 .todoButtons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // gap: 1rem;
 }
 .button {
   font-size: 2rem;

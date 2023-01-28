@@ -38,6 +38,7 @@ function TaskStatus() {
       </button>
       {statuses.map((status) => (
         <button
+          key={status.name}
           className={styles.status}
           onClick={() => dispatch(pickStatus(status.name))}
         >
