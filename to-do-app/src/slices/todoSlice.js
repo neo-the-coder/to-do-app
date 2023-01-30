@@ -5,7 +5,7 @@ const initValue = {
     {
       id: 2,
       category: "work",
-      task: "Some task to complete",
+      task: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quam eveniet adipisci ad sapiente quaerat molestiae natus ea nisi perspiciatis ut nihil, ullam aperiam cumque odit, quisquam deserunt quod. Inventore neque cum reprehenderit dolorem, tempora impedit quas numquam culpa ipsa fugiat nemo sapiente pariatur laborum labore dolorum ab hic ullam?",
       dueOn: true,
       due: "2022-11-05T16:43",
       status: "pending",

@@ -1,8 +1,9 @@
 import { format } from "date-fns";
 import React, { useState } from "react";
-import { BsCheck2Square, BsPencilSquare, BsTrash } from "react-icons/bs";
+import { BsCheck2Circle, BsPencilSquare, BsTrash } from "react-icons/bs";
 import { CgInfinity } from "react-icons/cg";
 import { useDispatch } from "react-redux";
+import { statuses } from "../app/statuses";
 import { subtractCount } from "../slices/categorySlice";
 import { deleteTodo, updateTodo } from "../slices/todoSlice";
 import styles from "../styles/TodoItem.module.scss";
@@ -14,6 +15,9 @@ function TodoItem({ todo }) {
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const dispatch = useDispatch();
+
+  const statusIcon = statuses[todo.status].icon;
+  const todoBg = statuses[todo.status].bg;
 
   const handleAccomplishment = (status) => {
     if (status === "unaccomplished") return;
@@ -56,53 +60,58 @@ function TodoItem({ todo }) {
       <div
         className={styles.todoItem}
         style={{
-          background: `linear-gradient(to top right, limegreen, transparent)`,
+          background: todoBg,
         }}
       >
         <div className={styles.todoDetails}>
           <div className={styles.description}>
             <button
-              className={styles.checkbox}
+              className={styles.button}
               onClick={() => handleAccomplishment(todo.status)}
               disabled={todo.status === "unaccomplished"}
             >
-              <BsCheck2Square />
+              <BsCheck2Circle />
             </button>
-            <p className={styles.task}>{todo.task}</p>
+            <p className={styles.task} style={{textDecoration: todo.status === 'accomplished' ? 'line-through' : null}}>{todo.task}</p>
           </div>
           {/* <div className={styles.time}>
             DueOn ? {todo.dueOn ? format(new Date(todo.due), 'dd LLL yyyy HH:mm') : '-'}
             <br />
             Status {todo.status}
           </div> */}
-          <p className={styles.status}>
-          <span>[O]</span>
-          {todo.dueOn ? (
-            <Timer id={todo.id} deadline={todo.due} status={todo.status} />
-          ) : (
-            <CgInfinity />
-          )}
-          </p>
+          <div className={styles.status}>
+            <span className={styles.statusIcon}>{statusIcon}</span>
+            <span className={styles.statusText}>
+              {todo.status.toUpperCase()}
+            </span>
+            {todo.status === "pending" ? (
+              todo.dueOn ? (
+                <Timer id={todo.id} deadline={todo.due} status={todo.status} />
+              ) : (
+                <CgInfinity />
+              )
+            ) : null}
+          </div>
         </div>
         <div className={styles.todoButtons}>
-          <div
+          <button
             className={styles.button}
             onClick={handleUpdate}
             //onKeyDown={handleUpdate}
-            role="button"
-            tabIndex={0}
+            // role="button"
+            // tabIndex={0}
           >
             <BsPencilSquare />
-          </div>
-          <div
+          </button>
+          <button
             className={styles.button}
             onClick={handleDelete}
             //onKeyDown={handleDelete}
-            tabIndex={0}
-            role="button"
+            // tabIndex={0}
+            // role="button"
           >
             <BsTrash />
-          </div>
+          </button>
         </div>
       </div>
       {/* optimize rendering by adding conditional state  */}

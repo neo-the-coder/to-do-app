@@ -1,30 +1,11 @@
 import React from "react";
 import styles from "../styles/TaskStatus.module.scss";
-import {
-  BsCalendarCheck,
-  BsCalendarX,
-  BsHourglassSplit,
-  BsListUl,
-} from "react-icons/bs";
+import { BsListUl } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { allStatus, pickStatus } from "../slices/filterSlice";
+import { statuses } from "../app/statuses";
 
 function TaskStatus() {
-  const statuses = [
-    {
-      name: "pending",
-      icon: <BsHourglassSplit />,
-    },
-    {
-      name: "accomplished",
-      icon: <BsCalendarCheck />,
-    },
-    {
-      name: "unaccomplished",
-      icon: <BsCalendarX />,
-    },
-  ];
-
   const dispatch = useDispatch();
 
   return (
@@ -36,14 +17,14 @@ function TaskStatus() {
         <BsListUl />
         <span>ALL</span>
       </button>
-      {statuses.map((status) => (
+      {Object.keys(statuses).map((status) => (
         <button
-          key={status.name}
+          key={status}
           className={styles.status}
-          onClick={() => dispatch(pickStatus(status.name))}
+          onClick={() => dispatch(pickStatus(status))}
         >
-          {status.icon}
-          <span>{status.name}</span>
+          {statuses[status].icon}
+          <span>{status}</span>
         </button>
       ))}
       {/* <div>
