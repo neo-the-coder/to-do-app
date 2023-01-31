@@ -11,11 +11,14 @@ const filterSlice = createSlice({
   reducers: {
     pickCategory: (state, action) => {
       // if all categories were picked, return empty array
+      console.log('DEEEL', action.payload, action.payload.cLength)
       if (!(state.category.length + 1 === action.payload.cLength)) {
         return {
           ...state,
           category: state.category.includes(action.payload.category)
             ? state.category.filter((cat) => cat !== action.payload.category)
+            : action.payload.cLength === "DEL"
+            ? [...state.category]
             : [...state.category, action.payload.category],
         };
       } else {

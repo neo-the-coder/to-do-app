@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import React, { useState } from "react";
 import { BsCheck2Circle, BsPencilSquare, BsTrash } from "react-icons/bs";
 import { CgInfinity } from "react-icons/cg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { statuses } from "../app/statuses";
 import { subtractCount } from "../slices/categorySlice";
 import { deleteTodo, updateTodo } from "../slices/todoSlice";
@@ -12,6 +12,7 @@ import TaskWindow from "./TaskWindow";
 import Timer from "./Timer";
 
 function TodoItem({ todo }) {
+  const categories = useSelector(state => state.category);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const dispatch = useDispatch();
@@ -61,6 +62,9 @@ function TodoItem({ todo }) {
         className={styles.todoItem}
         style={{
           background: todoBg,
+          //boxShadow: `inset 0 0 15px 15px ${categories[todo.category].color}`
+          outline: `10px solid ${categories[todo.category].color}`,
+          outlineOffset: '-12px'
         }}
       >
         <div className={styles.todoDetails}>

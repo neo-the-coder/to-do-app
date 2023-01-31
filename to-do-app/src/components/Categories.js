@@ -7,41 +7,44 @@ import SettingsCategories from './SettingsCategories';
 
 function Categories() {
     const [openSettings, setOpenSettings] = useState(false);
-    const categories = useSelector(state => state.category.categoriesList);
+    //const categories = useSelector(state => state.category.categoriesList);
+    const categories = useSelector(state => state.category);
+    const catArr = Object.keys(categories);
     const dispatch = useDispatch();
-    const cLength = categories.length;
-    const allTaskCount = categories.reduce((sum, category) => sum + category.count, 0);
+    const cLength = catArr.length;
+    const allTaskCount = catArr.reduce((sum, category) => sum + categories[category].count, 0);
 
   return (
     <>
       <button onClick={() => dispatch(allCategory())}>ALL<span>{allTaskCount}</span></button>
-      {categories.map((category) => (
+      {catArr.map((category) => (
         <button
-          style={{ backgroundColor: category.color, color: category.textColor }}
-          key={category.id}
+          style={{ backgroundColor: categories[category].color, color: categories[category].textColor }}
+          key={category}
+          //CHANGE BELOW
           onClick={() => {
             dispatch(
               pickCategory({
-                category: category.name,
+                category,
                 cLength,
               })
             );
           }}
         >
           {cLength}
-          {category.name}
-          <span>{category.count}</span>
+          {category}
+          <span>{categories[category].count}</span>
         </button>
       ))}
-      <div
+      <button
         className={styles.catSettings}
         onClick={() => setOpenSettings(true)}
-        onKeyDown={() => setOpenSettings(true)}
-        tabIndex={0}
-        role="button"
+        // onKeyDown={() => setOpenSettings(true)}
+        // tabIndex={0}
+        // role="button"
       >
         <MdOutlineMoreHoriz />
-      </div>
+      </button>
       {/* optimize rendering by adding conditional state  */}
       {openSettings && (
         <SettingsCategories

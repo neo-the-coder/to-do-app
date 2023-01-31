@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from '../styles/SettingsCategories.module.scss';
 import {v4 as uuid} from 'uuid';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { addCategory, editCategory, deleteCategory, addCount } from '../slices/categorySlice';
 import ConfirmationBox from './ConfirmationBox';
 import getTextColor from '../helpers/HexToHSL';
@@ -10,8 +10,10 @@ import { BsPencilSquare, BsTrash, BsXSquare } from 'react-icons/bs';
 import { updateTodo } from '../slices/todoSlice';
 import { pickCategory } from '../slices/filterSlice';
 
+
 function SettingsCategories({ openSettings, setOpenSettings }) {
-  const categoryList = useSelector((state) => state.category.categoriesList);
+  const categories = useSelector((state) => state.category);
+  const catArr = Object.keys(categories);
   console.log("CATEGORY OPTIONS RENDERED");
   const [openOptions, setOpenOptions] = useState(false);
   const [categoryState, setCategoryState] = useState(null);
@@ -24,22 +26,22 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
     openSettings && (
       <div className={styles.wrapper}>
         <div className={styles.container}>
-          <div
+          <button
             className={styles.closeButton}
             onClick={() => setOpenSettings(false)}
-            onKeyDown={() => setOpenSettings(false)}
-            tabIndex={0}
-            role="button"
+            // onKeyDown={() => setOpenSettings(false)}
+            // tabIndex={0}
+            // role="button"
           >
             <BsXSquare />
-          </div>
+          </button>
           <h1>CATEGORIES</h1>
           <div className={styles.catPanel}>
             <div className={styles.catNButtons}>
               <div className={styles.categoryList}>
-                {categoryList.map((category) => (
+                {catArr.map((category) => (
                   <CategoryList
-                    key={category.id}
+                    key={category}
                     category={category}
                     setCategoryState={setCategoryState}
                     setOpenOptions={setOpenOptions}
@@ -68,6 +70,7 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
 }
   
 function CategoryList({ category, setCategoryState, setOpenOptions }) {
+  const categories = useSelector((state) => state.category);
   console.log("CATEGORY RENDERED");
 
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -78,9 +81,9 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
     <h2>
       All tasks assigned to{" "}
       <span
-        style={{ backgroundColor: category.color, color: category.textColor }}
+        style={{ backgroundColor: categories[category].color, color: categories[category].textColor }}
       >
-        "{category.name}"
+        "{category}"
       </span>{" "}
       will be moved to{" "}
       <span style={{ backgroundColor: "#d4d4d4" }}>"miscellaneous"</span>
@@ -88,10 +91,10 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
   );
   
   const handleConfirmation = () => {
-    dispatch(deleteCategory(category.id));
-    dispatch(pickCategory({category: category.name}))
+    dispatch(deleteCategory(category));
+    dispatch(pickCategory({category, cLength: 'DEL'}))
     for (const todo of todoList) {
-      if (todo.category === category.name) {
+      if (todo.category === category) {
         dispatch(
           updateTodo({
             id: todo.id,
@@ -112,22 +115,22 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
     <>
       <div
         className={styles.category}
-        style={{ backgroundColor: category.color }}
+        style={{ backgroundColor: categories[category].color }}
       >
-        <p style={{ color: category.textColor }}>{category.name}</p>
+        <p style={{ color: categories[category].textColor }}>{category}</p>
         <div className={styles.button}>
           <button
-            disabled={category.name === "miscellaneous"}
+            disabled={category === "miscellaneous"}
             onClick={
-              category.name !== "miscellaneous" ? handleUpdate : undefined
+              category !== "miscellaneous" ? handleUpdate : undefined
             }
           >
             <BsPencilSquare />
           </button>
           <button
-            disabled={category.name === "miscellaneous"}
+            disabled={category === "miscellaneous"}
             onClick={
-              category.name !== "miscellaneous"
+              category !== "miscellaneous"
                 ? () => setOpenConfirm(true)
                 : undefined
             }
@@ -162,8 +165,10 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
 
 function CategoryOptions({ categoryState, openOptions, setOpenOptions }) {
   console.log("SETTINGS RENDERED");
+  // categoryState is null if a category is added
+  const categories = useSelector((state) => state.category);
   const dispatch = useDispatch();
-
+  
   const {
     register,
     handleSubmit,
@@ -172,37 +177,55 @@ function CategoryOptions({ categoryState, openOptions, setOpenOptions }) {
   } = useForm({
     mode: "onSubmit",
   });
+  
+  const customValidation = (value) => {
+    // !(value.toLowerCase() in categories && !categoryState) &&
+    // !(value.toLowerCase() in categories && value !== categoryState)
+    return !(
+      value.toLowerCase() in categories &&
+      (!categoryState || value !== categoryState)
+    );
+  };
 
   useEffect(() => {
     console.log("USEEFFECT");
     reset();
   }, [categoryState]);
-
+  
   const handleCancel = () => setOpenOptions(false);
-
+  
   const onSubmit = (data) => {
     //e.preventDefault();
     console.log("data added", data, categoryState);
-
     if (!categoryState) {
       const newCategory = {
-        id: uuid(),
-        name: data.title,
-        color: data.color,
-        textColor: getTextColor(data.color),
-        count: 0,
+        // id: uuid(),
+        // name: data.title,
+        // color: data.color,
+        // textColor: getTextColor(data.color),
+        // count: 0,
+        [data.title.toLowerCase()] : {
+          color: data.color,
+          textColor: getTextColor(data.color),
+          count: 0,
+        }
       };
       dispatch(addCategory(newCategory));
     } else {
       const editedCategory = {
-        id: categoryState.id,
-        name: data.title,
-        color: data.color,
-        textColor: getTextColor(data.color),
+        // id: categoryState.id,
+        // name: data.title,
+        // color: data.color,
+        // textColor: getTextColor(data.color),
+        prevName: categoryState,
+        newName : data.title.toLowerCase(),
+        data : {
+          color: data.color,
+          textColor: getTextColor(data.color),
+        }
       };
       dispatch(editCategory(editedCategory));
     }
-
     // Setting default values after save
     handleCancel();
   };
@@ -211,7 +234,7 @@ function CategoryOptions({ categoryState, openOptions, setOpenOptions }) {
     openOptions && (
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
-          <legend>{categoryState ? "Update" : "Add"} category </legend>
+          <legend>{categoryState ? "Edit" : "Add"} a category</legend>
           <label htmlFor="title">
             Title
             <input
@@ -219,9 +242,10 @@ function CategoryOptions({ categoryState, openOptions, setOpenOptions }) {
               id="title"
               autoFocus
               placeholder="Add your category..."
-              defaultValue={categoryState ? categoryState.name : ""}
+              defaultValue={categoryState ? categoryState : ""}
               {...register("title", {
                 required: "Category title cannot be empty.",
+                validate: v => customValidation(v) || `There is "${v.toLowerCase()}" category already.`
               })}
             />
           </label>
@@ -231,12 +255,12 @@ function CategoryOptions({ categoryState, openOptions, setOpenOptions }) {
             <input
               type="color"
               id="color"
-              defaultValue={categoryState ? categoryState.color : "#ffffff"}
+              defaultValue={categoryState ? categories[categoryState].color : "#ffffff"}
               {...register("color", { required: true })}
             />
           </label>
           <div className={styles.buttonContainer}>
-            <button type="submit">Save</button>
+            <button type="submit">{categoryState ? "Save" : "Add"}</button>
             <button onClick={handleCancel}>Cancel</button>
           </div>
         </fieldset>

@@ -12,7 +12,7 @@ import { BsXSquare } from "react-icons/bs";
 
 function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
   console.log('TASK rendered')
-  const categoryList = useSelector((state) => state.category.categoriesList);
+  const categoryList = useSelector((state) => state.category);
   const dispatch = useDispatch();
   const [dueToggle, setDueToggle] = useState(todo ? todo.dueOn : false);
 
@@ -106,15 +106,15 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
     taskWindowOpen && (
       <div className={styles.wrapper}>
         <div className={styles.container}>
-          <div
+          <button
             className={styles.closeButton}
             onClick={handleCancel}
-            onKeyDown={handleCancel}
-            tabIndex={0}
-            role="button"
+            // onKeyDown={handleCancel}
+            // tabIndex={0}
+            // role="button"
           >    
             <BsXSquare />
-          </div>
+          </button>
 
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <h1 className={styles.formTitle}>
@@ -143,9 +143,9 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
                 defaultValue={todo ? todo.category : "miscellaneous"}
                 {...register("category", { required: true })}
               >
-                {categoryList.map((category) => (
-                  <option key={category.id} value={category.name} >
-                    {category.name}
+                {Object.keys(categoryList).map((category) => (
+                  <option key={category} value={category} >
+                    {category}
                   </option>
                 ))}
               </select>
@@ -177,7 +177,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
             )}
             <div className={styles.buttonContainer}>
               <button type="submit">
-                {type === "add" ? "Add" : "Update"} Task
+                {type === "add" ? "Add" : "Update"}
               </button>
               <button onClick={handleCancel} onKeyDown={handleCancel}>
                 Cancel
