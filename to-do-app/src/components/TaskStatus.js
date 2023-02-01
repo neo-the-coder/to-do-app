@@ -16,7 +16,7 @@ function TaskStatus() {
       <div className={styles.filterButtons}>
         <button
           className={`${styles.status} ${
-            statusState.length === 0 ? styles.active : null
+            statusState.length === 0 ? styles.active : ''
           }`}
           onClick={() => dispatch(allStatus())}
         >
@@ -28,7 +28,7 @@ function TaskStatus() {
           <button
             key={status}
             className={`${styles.status} ${
-              statusState.includes(status) ? styles.active : null
+              statusState.includes(status) ? styles.active : ''
             }`}
             onClick={() => dispatch(pickStatus(status))}
           >

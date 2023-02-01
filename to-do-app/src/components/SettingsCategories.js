@@ -86,7 +86,7 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
         "{category}"
       </span>{" "}
       will be moved to{" "}
-      <span style={{ backgroundColor: "#d4d4d4" }}>"miscellaneous"</span>
+      <span style={{ backgroundColor: "#777777" }}>"miscellaneous"</span>
     </h2>
   );
   

@@ -33,8 +33,8 @@ const initValue = {
   //   },
   // ],
   miscellaneous: {
-    color: "#d4d4d4",
-    textColor: "black",
+    color: "#777777",
+    textColor: "white",
     count: 0,
   },
   work: {
