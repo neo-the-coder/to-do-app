@@ -17,8 +17,14 @@ function TodoItem({ todo }) {
   const [openConfirm, setOpenConfirm] = useState(false);
   const dispatch = useDispatch();
 
+  // Styles
   const statusIcon = statuses[todo.status].icon;
   const todoBg = statuses[todo.status].bg;
+  //const btnStyle = {color: categories[todo.category].color, border: `2px solid ${categories[todo.category].color}`};
+  //const btnHover = `color: '#f5f5f5'; background: ${categories[todo.category].color}`;
+  //const catColor = `--catColor: ${categories[todo.category].color}`;
+  const catColor = { "--catColor": categories[todo.category].color };
+
 
   const handleAccomplishment = (status) => {
     if (status === "unaccomplished") return;
@@ -63,8 +69,9 @@ function TodoItem({ todo }) {
         style={{
           background: todoBg,
           //boxShadow: `inset 0 0 15px 15px ${categories[todo.category].color}`
-          outline: `10px solid ${categories[todo.category].color}`,
-          outlineOffset: '-12px'
+          // outline: `5px solid ${categories[todo.category].color}`,
+          // outlineOffset: '-5px'
+          borderLeft: `10px solid ${categories[todo.category].color}`
         }}
       >
         <div className={styles.todoDetails}>
@@ -73,6 +80,9 @@ function TodoItem({ todo }) {
               className={styles.button}
               onClick={() => handleAccomplishment(todo.status)}
               disabled={todo.status === "unaccomplished"}
+              style={catColor}
+              // onMouseEnter={e => {console.log('aBURA BAx', e.target.style.cssText); e.target.style=btnHover}}
+              // onMouseLeave={e => e.target.style = b}
             >
               <BsCheck2Circle />
             </button>
@@ -101,6 +111,7 @@ function TodoItem({ todo }) {
           <button
             className={styles.button}
             onClick={handleUpdate}
+            style={catColor}
             //onKeyDown={handleUpdate}
             // role="button"
             // tabIndex={0}
@@ -110,6 +121,7 @@ function TodoItem({ todo }) {
           <button
             className={styles.button}
             onClick={handleDelete}
+            style={catColor}
             //onKeyDown={handleDelete}
             // tabIndex={0}
             // role="button"

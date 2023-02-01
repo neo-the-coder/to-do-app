@@ -16,35 +16,43 @@ function Categories() {
 
   return (
     <>
-      <button onClick={() => dispatch(allCategory())}>ALL<span>{allTaskCount}</span></button>
-      {catArr.map((category) => (
+      <div className={styles.leftSide}>
         <button
-          style={{ backgroundColor: categories[category].color, color: categories[category].textColor }}
-          key={category}
-          //CHANGE BELOW
-          onClick={() => {
-            dispatch(
-              pickCategory({
-                category,
-                cLength,
-              })
-            );
-          }}
+          title='Settings'
+          className={styles.catSettings}
+          onClick={() => setOpenSettings(true)}
+          // onKeyDown={() => setOpenSettings(true)}
+          // tabIndex={0}
+          // role="button"
         >
-          {cLength}
-          {category}
-          <span>{categories[category].count}</span>
+          <MdOutlineMoreHoriz />
         </button>
-      ))}
-      <button
-        className={styles.catSettings}
-        onClick={() => setOpenSettings(true)}
-        // onKeyDown={() => setOpenSettings(true)}
-        // tabIndex={0}
-        // role="button"
-      >
-        <MdOutlineMoreHoriz />
-      </button>
+        <button className={styles.allButton} onClick={() => dispatch(allCategory())}>ALL<span>{allTaskCount}</span></button>
+      </div>
+      <div className={styles.catWrapper}>
+        <h3>CATEGORIES</h3>
+        <div className={styles.categories}>
+          {catArr.map((category) => (
+            <button
+              style={{ backgroundColor: categories[category].color, color: categories[category].textColor }}
+              key={category}
+              //CHANGE BELOW
+              onClick={() => {
+                dispatch(
+                  pickCategory({
+                    category,
+                    cLength,
+                  })
+                );
+              }}
+            >
+              {cLength}
+              {category}
+              <span>{categories[category].count}</span>
+            </button>
+          ))}
+        </div>
+      </div>
       {/* optimize rendering by adding conditional state  */}
       {openSettings && (
         <SettingsCategories

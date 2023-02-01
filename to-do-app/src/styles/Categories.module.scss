@@ -1,8 +1,74 @@
+.leftSide {
+	//padding: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	align-self: stretch;
+	//gap: 10px;
+	justify-content: space-between;
+	
+	.allButton {
+		font-size: 0.8rem;
+		border-radius: 30px;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		//padding: 10px 35px 10px 15px;
+		padding: 5px 10px;
+		cursor: pointer;
+
+		&:hover {
+			opacity: 50%;
+		}
+		span {
+			font-weight: bold;
+			margin-left: 10px;
+		}
+	}
+}
 .catSettings {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	font-size: 1.1rem;
 	border-radius: 50%;
 	//padding: 10px 35px 10px 15px;
-	padding: 5px;
-    border: 2px solid black;
-    cursor: pointer;
+	padding: 4px;
+	border: 1px solid black;
+	//border-style: inset;
+	cursor: pointer;
+}
+.catWrapper {
+	flex-grow: 1;
+	& > h3 {
+		text-align: center;
+		margin-block: 0;
+		margin-bottom: 10px;
+	}
+}
+
+.categories {
+	
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	//flex-grow: 1;
+	//align-self: flex-start;
+	flex-wrap: wrap;
+	gap: 10px;
+
+	& > button {
+		font-size: 0.8rem;
+		border-radius: 30px;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		//padding: 10px 35px 10px 15px;
+		padding: 5px 10px;
+		cursor: pointer;
+		
+		&:hover {
+			opacity: 50%;
+		}
+		span {
+			font-weight: bold;
+			margin-left: 10px;
+		}
+	}
 }

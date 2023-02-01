@@ -18,14 +18,16 @@ function App() {
           setTaskWindowOpen={setTaskWindowOpen}
         />
       </div>
-      <div
+      <button
         onClick={() => setTaskWindowOpen(true)}
-        onKeyDown={() => setTaskWindowOpen(true)}
-        tabIndex={0}
-        role="button"
+        title="Add task"
+        className={styles.addButton}
+        // onKeyDown={() => setTaskWindowOpen(true)}
+        // tabIndex={0}
+        // role="button"
       >
         <BsCalendarPlus /> Add Task
-      </div>
+      </button>
       <TaskWindow
         type="add"
         taskWindowOpen={taskWindowOpen}

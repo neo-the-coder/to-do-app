@@ -5,9 +5,12 @@ import {
   } from "react-icons/bs";
 
 export const statuses = {
-  pending : {icon: <BsHourglassSplit />, bg: '#f5f5f5'},
-  accomplished : {icon: <BsCalendarCheck />, bg: '#d1e7dd'},
-  unaccomplished : {icon: <BsCalendarX />, bg: '#f8d7da'}
+  pending : {icon: <BsHourglassSplit />, bg: '#e4e4e4'},
+  accomplished : {icon: <BsCalendarCheck />, bg: '#89dc94'},
+  unaccomplished : {icon: <BsCalendarX />, bg: '#d33537'}
+  //#c74244
+  //#fefadd
+  //#f9f395
 }
 
 
