@@ -37,7 +37,7 @@ const filterSlice = createSlice({
       }
     },
     pickStatus: (state, action) => {
-      if (!(state.status.length + 1 === 4)) {
+      if (!(state.status.length + 1 === 3 && !state.status.includes(action.payload))) {
         return {
           ...state,
           status: state.status.includes(action.payload)
