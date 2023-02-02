@@ -5,7 +5,7 @@ import { differenceInMonths, differenceInYears } from "date-fns";
 import { useDispatch } from "react-redux";
 import { updateTodo } from "../slices/todoSlice";
 
-const Timer = ({ id, deadline, status }) => {
+const Timer = ({ id, deadline, status, catColor }) => {
   const dispatch = useDispatch();
   const [years, setYears] = useState(0);
   const [months, setMonths] = useState(0);
@@ -38,7 +38,7 @@ const Timer = ({ id, deadline, status }) => {
   }, [deadline, status]);
 
   return (
-    <div className={styles.timer} role="timer">
+    <div style={catColor} className={styles.timer} role="timer">
       <div className={styles.longer}>
         {years !== 0 ? (
           <div className={styles.timeUnit}>

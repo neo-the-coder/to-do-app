@@ -23,7 +23,7 @@ function TodoItem({ todo }) {
   //const btnStyle = {color: categories[todo.category].color, border: `2px solid ${categories[todo.category].color}`};
   //const btnHover = `color: '#f5f5f5'; background: ${categories[todo.category].color}`;
   //const catColor = `--catColor: ${categories[todo.category].color}`;
-  const catColor = { "--catColor": categories[todo.category].color };
+  const catColor = { "--catColor": categories[todo.category].color, "--catTextColor": categories[todo.category].textColor };
 
 
   const handleAccomplishment = (status) => {
@@ -100,7 +100,7 @@ function TodoItem({ todo }) {
             </span>
             {todo.status === "pending" ? (
               todo.dueOn ? (
-                <Timer id={todo.id} deadline={todo.due} status={todo.status} />
+                <Timer id={todo.id} deadline={todo.due} status={todo.status} catColor={catColor}/>
               ) : (
                 <CgInfinity />
               )
