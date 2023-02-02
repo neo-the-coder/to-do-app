@@ -4,6 +4,7 @@ import { BsListUl } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { allStatus, pickStatus } from "../slices/filterSlice";
 import { statuses } from "../app/statuses";
+import { RiFilterFill } from "react-icons/ri";
 
 function TaskStatus() {
   const statusState = useSelector((state) => state.filter.status);
@@ -12,7 +13,7 @@ function TaskStatus() {
 
   return (
     <>
-      <h1 className={styles.filterLabel}>Filter by STATUS</h1>
+      <h3 className={styles.filterTitle}><RiFilterFill />STATUS</h3>
       <div className={styles.filterButtons}>
         <button
           className={`${styles.status} ${

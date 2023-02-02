@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {RxHamburgerMenu} from "react-icons/rx";
+import { RiFilterFill } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux'
 import { allCategory, pickCategory } from '../slices/filterSlice';
 import styles from '../styles/Categories.module.scss';
@@ -18,21 +19,35 @@ function Categories() {
     <>
       <div className={styles.leftSide}>
         <button
-          title='Settings'
+          title="Settings"
           className={styles.catSettings}
           onClick={() => setOpenSettings(true)}
         >
-          <RxHamburgerMenu/>
+          <RxHamburgerMenu />
         </button>
-        <button className={`${styles.allButton} ${filterState.length === 0 ? styles.allActive : ''}`} onClick={() => dispatch(allCategory())}>ALL<span>{allTaskCount}</span></button>
+        <button
+          className={`${styles.allButton} ${
+            filterState.length === 0 ? styles.allActive : ""
+          }`}
+          onClick={() => dispatch(allCategory())}
+        >
+          ALL<span>{allTaskCount}</span>
+        </button>
       </div>
       <div className={styles.catWrapper}>
-        <h3>CATEGORIES</h3>
+        <h3 className={styles.filterTitle}>
+        <RiFilterFill />CATEGORIES
+        </h3>
         <div className={styles.categories}>
           {catArr.map((category) => (
             <button
-              style={{'--catColor': categories[category].color, '--catTextColor': categories[category].textColor}}
-              className={`${styles.cUnit} ${filterState.includes(category) ? styles.active : ''}`}
+              style={{
+                "--catColor": categories[category].color,
+                "--catTextColor": categories[category].textColor,
+              }}
+              className={`${styles.cUnit} ${
+                filterState.includes(category) ? styles.active : ""
+              }`}
               key={category}
               onClick={() => {
                 dispatch(
@@ -43,7 +58,7 @@ function Categories() {
                 );
               }}
             >
-              {category}
+              {category[0].toUpperCase() + category.slice(1)}
               <span>{categories[category].count}</span>
             </button>
           ))}

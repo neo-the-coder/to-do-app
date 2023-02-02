@@ -7,10 +7,23 @@
   //background: var(--white);
   margin-bottom: 2rem;
   border-radius: 20px;
+  animation: append-animate 0.6s cubic-bezier(0, 1.03, 0.53, 1.38);
   &:last-child {
     margin-bottom: 0;
   }
 }
+
+@keyframes append-animate {
+	from {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0%);
+		opacity: 1;
+	}
+}
+
 .todoDetails {
   width: 100%;
   //border-right: 1px solid grey;

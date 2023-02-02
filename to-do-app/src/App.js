@@ -3,7 +3,7 @@ import AppBlock from './components/AppBlock';
 import FilterBlock from './components/FilterBlock';
 import { useState } from 'react';
 import TaskWindow from './components/TaskWindow';
-import { BsCalendarPlus } from 'react-icons/bs';
+import { BsPlus } from 'react-icons/bs';
 
 function App() {
   const [taskWindowOpen, setTaskWindowOpen] = useState(false);
@@ -26,7 +26,7 @@ function App() {
         // tabIndex={0}
         // role="button"
       >
-        <BsCalendarPlus /> Add Task
+        <BsPlus />
       </button>
       <TaskWindow
         type="add"

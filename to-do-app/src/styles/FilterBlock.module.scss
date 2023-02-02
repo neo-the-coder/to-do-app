@@ -1,20 +1,20 @@
 .wrapper {
 	margin: 20px auto;
 	display: flex;
-	//flex-direction: column;
+	flex-direction: row-reverse;
 	align-items: stretch;
 	//justify-content: space-around;
 	gap: 10px;
 	.categoryFilter {
 		//width: 100%;
 		//padding: 0.5rem;
-		padding: 10px;
+		padding: 15px;
 		border: 1px solid black;
 		border-radius: 10px;
 		background-color: whitesmoke;
 		//margin-bottom: 10px;
-		//flex-direction: column;
 		display: flex;
+		flex-direction: row-reverse;
 		//align-items: center;
 		//justify-content: space-between;
 		//flex-wrap: wrap;
@@ -22,17 +22,29 @@
 		//height: 60px;
 		gap: 15px;
 
-		& > button {
-			font-size: 1rem;
-			border-radius: 30px;
-			border: 1px solid rgba(0, 0, 0, 0.5);
-			//padding: 10px 35px 10px 15px;
-			padding: 5px;
+		// & > button {
+		// 	// font-size: 0.8rem;
+		// 	// border-radius: 12px;
+		// 	// border: 1px solid var(--catColor);
+		// 	// background-color: white;
+		// 	// color: var(--catColor);
+		// 	// padding: 5px 10px;
+		// 	// cursor: pointer;
+		// 	// span {
+		// 	// 	font-weight: bold;
+		// 	// 	margin-left: 10px;
+		// 	// }
 
-			span {
-				margin: 10px;
-			}
-		}
+		// 	font-size: 1rem;
+		// 	border-radius: 30px;
+		// 	border: 1px solid #212529;
+		// 	//padding: 10px 35px 10px 15px;
+		// 	padding: 5px;
+
+		// 	span {
+		// 		margin: 10px;
+		// 	}
+		// }
 	}
 	.taskSwitch {
 		//width: 100%;
@@ -43,7 +55,7 @@
 		background: whitesmoke;
 		border: 1px solid black;
 		border-radius: 10px;
-		padding: 0 20px 10px 20px;
+		padding: 15px;
 		//flex-wrap: wrap;
 	}
 }
