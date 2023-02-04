@@ -1,7 +1,7 @@
-import React from 'react'
-import styles from '../styles/FilterBlock.module.scss';
-import Categories from './Categories';
-import TaskStatus from './TaskStatus';
+import React from "react";
+import styles from "../styles/FilterBlock.module.scss";
+import Categories from "./Categories";
+import TaskStatus from "./TaskStatus";
 
 function FilterBlock() {
   return (
@@ -16,4 +16,4 @@ function FilterBlock() {
   );
 }
 
-export default FilterBlock
+export default FilterBlock;

@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
-import {RxHamburgerMenu} from "react-icons/rx";
+import React, { useState } from "react";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { RiFilterFill } from "react-icons/ri";
-import { useDispatch, useSelector } from 'react-redux'
-import { allCategory, pickCategory } from '../slices/filterSlice';
-import styles from '../styles/Categories.module.scss';
-import SettingsCategories from './SettingsCategories';
-import { getLightFix } from '../helpers/HexToHSL';
+import { useDispatch, useSelector } from "react-redux";
+import { allCategory, pickCategory } from "../slices/filterSlice";
+import styles from "../styles/Categories.module.scss";
+import SettingsCategories from "./SettingsCategories";
+import { getLightFix } from "../helpers/HexToHSL";
 
 function Categories() {
   const [openSettings, setOpenSettings] = useState(false);
-  const categories = useSelector(state => state.category);
-  const filterState = useSelector(state => state.filter.category);
+  const categories = useSelector((state) => state.category);
+  const filterState = useSelector((state) => state.filter.category);
   const catArr = Object.keys(categories);
   const dispatch = useDispatch();
   const cLength = catArr.length;
-  const allTaskCount = catArr.reduce((sum, category) => sum + categories[category].count, 0);
+  const allTaskCount = catArr.reduce(
+    (sum, category) => sum + categories[category].count,
+    0
+  );
 
   return (
     <>
@@ -79,4 +82,4 @@ function Categories() {
   );
 }
 
-export default Categories
+export default Categories;

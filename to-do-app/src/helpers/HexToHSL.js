@@ -60,7 +60,6 @@ export function getLightFix(H) {
   s = +(s * 100).toFixed(1);
   l = +(l * 100).toFixed(1);
 
-  console.log('LLLLLLLLL', l)
   return l >= 95 || (s <50 && l > 90) || (s<20 && l> 70);
   //return "hsl(" + h + "," + s + "%," + l + "%)";
 }

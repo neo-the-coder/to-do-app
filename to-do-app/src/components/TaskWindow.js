@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useForm } from 'react-hook-form';
-//import toast from 'react-hot-toast';
 import styles from "../styles/TaskWindow.module.scss";
 import { addMinutes } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +8,12 @@ import { addTodo, updateTodo } from "../slices/todoSlice";
 import { addCount, subtractCount } from "../slices/categorySlice";
 import { dtToSlicedISO, dtTZFixed } from "../helpers/DateTimeValue";
 import { CgClose } from 'react-icons/cg';
+import { addStatus, subtractStatus } from "../slices/statusSlice";
 
 function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
-  console.log('TASK rendered')
+  const [dueToggle, setDueToggle] = useState(todo ? todo.dueOn : false);
   const categoryList = useSelector((state) => state.category);
   const dispatch = useDispatch();
-  const [dueToggle, setDueToggle] = useState(todo ? todo.dueOn : false);
 
   // DateTime initial state values
   const dtMin = dtToSlicedISO(addMinutes(dtTZFixed(), 1));
@@ -38,8 +37,6 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
   };
 
   const onSubmit = (data) => {
-    //e.preventDefault();
-    console.log('Submitted', data)
     if (type === "add") {
       const newTask = {
         id: uuid(),
@@ -50,7 +47,11 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
         status: "pending",
       };
       dispatch(addTodo(newTask));
+      // add to the category
       dispatch(addCount(data.category));
+      // add to the status
+      dispatch(addStatus('pending'));
+
       setDueToggle(false);
     } else {
       const updatedTask = {
@@ -62,42 +63,16 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
         status: "pending"
       };
       dispatch(updateTodo(updatedTask));
+      if (todo.status !== 'pending') {
+        dispatch(addStatus('pending'));
+        dispatch(subtractStatus(todo.status));
+      }
       if (todo.category !== data.category) {
         dispatch(addCount(data.category));
         dispatch(subtractCount(todo.category));
       }
     }
-    //   if (title === '') {
-    //     toast.error('Please enter a title.');
-    //     return;
-    //   }
-    //   if (title && status) {
-    //     if (todo) {
-    //       dispatch(
-    //         addTodo({
-    //           id: uuid(),
-    //           title,
-    //           status,
-    //           time: new Date().toLocaleString(),
-    //         })
-    //       );
-    //       toast.success('Task Added ~~Successfully!');
-    //     } else if (type === 'update') {
-    //       if (todo.title !== title || todo.status !== status) {
-    //         dispatch(
-    //           updateTodo({
-    //             ...todo,
-    //             title,
-    //             status,
-    //           })
-    //         );
-    //       } else {
-    //         toast.error('No changes made');
-    //       }
-    //     }
-    //   } else {
-    //     toast.error("Title Shouldn't be empty");
-    //   }
+    
     setTaskWindowOpen(false);
     reset();
   };
@@ -174,7 +149,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
                           dueToggle && "Either set a deadline or disable it",
                         min: {
                           value: dtMin,
-                          message: "Deadline cannot be set in the past.",
+                          message: "Deadline cannot be set in the past",
                         },
                       })}
                     />

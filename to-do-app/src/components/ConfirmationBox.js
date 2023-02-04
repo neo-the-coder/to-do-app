@@ -1,10 +1,13 @@
-import React from 'react'
-import styles from '../styles/ConfirmationBox.module.scss';
-import { CgClose } from 'react-icons/cg';
+import React from "react";
+import styles from "../styles/ConfirmationBox.module.scss";
+import { CgClose } from "react-icons/cg";
 
-function ConfirmationBox({message ,handleConfirmation, openConfirm, setOpenConfirm}) {
-  console.log('CONFIRM')
-  //Are you sure to delete?
+function ConfirmationBox({
+  message,
+  handleConfirmation,
+  openConfirm,
+  setOpenConfirm,
+}) {
   return (
     openConfirm && (
       <div className={styles.wrapper}>
@@ -20,7 +23,9 @@ function ConfirmationBox({message ,handleConfirmation, openConfirm, setOpenConfi
             <div className={styles.customMsg}>{message}</div>
           </div>
           <div className={styles.buttonContainer}>
-            <button className={styles.confirmBtn} onClick={handleConfirmation}>Delete</button>
+            <button className={styles.confirmBtn} onClick={handleConfirmation}>
+              Delete
+            </button>
             <button onClick={() => setOpenConfirm(false)}>Cancel</button>
           </div>
         </div>
@@ -29,4 +34,4 @@ function ConfirmationBox({message ,handleConfirmation, openConfirm, setOpenConfi
   );
 }
 
-export default ConfirmationBox
+export default ConfirmationBox;

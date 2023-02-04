@@ -19,6 +19,10 @@
     cursor: pointer;
     span {
         flex-grow: 1;
+        .statusCount {
+            font-weight: bold;
+            margin-left: 10px;
+        }
     }
     svg {
         width: 1rem;

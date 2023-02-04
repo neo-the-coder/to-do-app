@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { differenceInMonths, differenceInYears } from "date-fns";
 import { useDispatch } from "react-redux";
 import { updateTodo } from "../slices/todoSlice";
+import { addStatus, subtractStatus } from "../slices/statusSlice";
 
 const Timer = ({ id, deadline, status, catColor }) => {
   const dispatch = useDispatch();
@@ -25,14 +26,22 @@ const Timer = ({ id, deadline, status, catColor }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log('Tik-Tok')
       const time = Math.floor((Date.parse(deadline) - Date.now()) / 1000);
       if (status === "pending" && time >= 0) {
         runTimer(time);
-        if (time === 0) {
+        if (time <= 0) {
           clearInterval(interval);
           dispatch(updateTodo({ id, status: "unaccomplished" }));
+          dispatch(addStatus("unaccomplished"));
+          dispatch(subtractStatus("pending"));
         }
-      } else clearInterval(interval);
+      } else {
+        clearInterval(interval);
+        dispatch(updateTodo({ id, status: "unaccomplished" }));
+        dispatch(addStatus("unaccomplished"));
+        dispatch(subtractStatus("pending"));
+      }
     }, 1000);
     return () => clearInterval(interval);
   }, [deadline, status]);

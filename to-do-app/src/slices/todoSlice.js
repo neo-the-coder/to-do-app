@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initValue = {
   todoList: [
@@ -25,7 +25,7 @@ const initValue = {
       dueOn: true,
       due: "2035-11-05T16:43",
       status: "pending",
-    }
+    },
   ],
 };
 
@@ -34,7 +34,6 @@ const todoSlice = createSlice({
   initialState: initValue,
   reducers: {
     addTodo: (state, action) => {
-      console.log('Payload Add', action.payload)
       return {
         ...state,
         todoList: [...state.todoList, action.payload],
@@ -43,37 +42,21 @@ const todoSlice = createSlice({
     deleteTodo: (state, action) => {
       return {
         ...state,
-        todoList: state.todoList.filter(
-          (todo) => todo.id !== action.payload
-        ),
+        todoList: state.todoList.filter((todo) => todo.id !== action.payload),
       };
     },
     updateTodo: (state, action) => {
-        console.log('Payload:', action.payload)
       return {
         ...state,
         todoList: state.todoList.map((todo) => {
-          return todo.id === action.payload.id ? {...todo, ...action.payload} : todo;
+          return todo.id === action.payload.id
+            ? { ...todo, ...action.payload }
+            : todo;
         }),
       };
     },
-    // updateTodoStatus: (state, action) => {
-    //   return {
-    //     ...state,
-    //     todoList: state.todoList.map(todo => {
-    //       return todo.id === action.payload.id ? {...todo, }
-    //     })
-    //   }
-    // }
   },
 });
 
 export const { addTodo, deleteTodo, updateTodo } = todoSlice.actions;
 export default todoSlice.reducer;
-
-// //category initial state
-// const initialValue = [{
-//     name: 'work',
-//     color: getColor(),
-//     numOfTasks: getTaskSum()
-// }]

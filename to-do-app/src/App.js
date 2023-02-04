@@ -1,16 +1,16 @@
-import styles from './styles/App.module.scss';
-import AppBlock from './components/AppBlock';
-import FilterBlock from './components/FilterBlock';
-import { useState } from 'react';
-import TaskWindow from './components/TaskWindow';
-import { BsPlus } from 'react-icons/bs';
+import styles from "./styles/App.module.scss";
+import AppBlock from "./components/AppBlock";
+import FilterBlock from "./components/FilterBlock";
+import { useState } from "react";
+import TaskWindow from "./components/TaskWindow";
+import { BsPlus } from "react-icons/bs";
 
 function App() {
   const [taskWindowOpen, setTaskWindowOpen] = useState(false);
 
   return (
     <div className={styles.app}>
-      <h1>To do List</h1>
+      <h1>TO-DO LIST</h1>
       <div className={styles.app__wrapper}>
         <FilterBlock />
         <AppBlock
@@ -22,9 +22,6 @@ function App() {
         onClick={() => setTaskWindowOpen(true)}
         title="Add task"
         className={styles.addButton}
-        // onKeyDown={() => setTaskWindowOpen(true)}
-        // tabIndex={0}
-        // role="button"
       >
         <BsPlus />
       </button>

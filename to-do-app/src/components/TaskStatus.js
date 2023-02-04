@@ -3,38 +3,53 @@ import styles from "../styles/TaskStatus.module.scss";
 import { BsListUl } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { allStatus, pickStatus } from "../slices/filterSlice";
-import { statuses } from "../app/statuses";
 import { RiFilterFill } from "react-icons/ri";
 
 function TaskStatus() {
   const statusState = useSelector((state) => state.filter.status);
-  console.log(statusState)
+  const statuses = useSelector((state) => state.status);
+  const statusesArr = Object.keys(statuses);
+  const allStatusCount = statusesArr.reduce(
+    (sum, status) => sum + statuses[status].count,
+    0
+  );
+
   const dispatch = useDispatch();
 
   return (
     <>
-      <h3 className={styles.filterTitle}><RiFilterFill />STATUS</h3>
+      <h3 className={styles.filterTitle}>
+        <RiFilterFill />
+        STATUS
+      </h3>
       <div className={styles.filterButtons}>
         <button
           className={`${styles.status} ${
-            statusState.length === 0 ? styles.active : ''
+            statusState.length === 0 ? styles.active : ""
           }`}
           onClick={() => dispatch(allStatus())}
         >
           <BsListUl />
-          <span>ALL</span>
+          <span>
+            ALL<span className={styles.statusCount}>{allStatusCount}</span>
+          </span>
         </button>
 
-        {Object.keys(statuses).map((status) => (
+        {statusesArr.map((status) => (
           <button
             key={status}
             className={`${styles.status} ${
-              statusState.includes(status) ? styles.active : ''
+              statusState.includes(status) ? styles.active : ""
             }`}
             onClick={() => dispatch(pickStatus(status))}
           >
             {statuses[status].icon}
-            <span>{status.toUpperCase()}</span>
+            <span>
+              {status.toUpperCase()}
+              <span className={styles.statusCount}>
+                {statuses[status].count}
+              </span>
+            </span>
           </button>
         ))}
       </div>

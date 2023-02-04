@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initValue = {
-  category: [], 
+  category: [],
   status: [],
 };
 
@@ -11,7 +11,12 @@ const filterSlice = createSlice({
   reducers: {
     pickCategory: (state, action) => {
       // if all categories were picked, return empty array
-      if (!(state.category.length + 1 === action.payload.cLength && !state.category.includes(action.payload.category))) {
+      if (
+        !(
+          state.category.length + 1 === action.payload.cLength &&
+          !state.category.includes(action.payload.category)
+        )
+      ) {
         return {
           ...state,
           category: state.category.includes(action.payload.category)
@@ -36,7 +41,12 @@ const filterSlice = createSlice({
       }
     },
     pickStatus: (state, action) => {
-      if (!(state.status.length + 1 === 3 && !state.status.includes(action.payload))) {
+      if (
+        !(
+          state.status.length + 1 === 3 &&
+          !state.status.includes(action.payload)
+        )
+      ) {
         return {
           ...state,
           status: state.status.includes(action.payload)
@@ -61,5 +71,6 @@ const filterSlice = createSlice({
   },
 });
 
-export const { pickCategory, allCategory, pickStatus, allStatus } = filterSlice.actions;
+export const { pickCategory, allCategory, pickStatus, allStatus } =
+  filterSlice.actions;
 export default filterSlice.reducer;
