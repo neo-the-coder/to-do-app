@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTodo, updateTodo } from "../slices/todoSlice";
 import { addCount, subtractCount } from "../slices/categorySlice";
 import { dtToSlicedISO, dtTZFixed } from "../helpers/DateTimeValue";
-import { BsXSquare } from "react-icons/bs";
+import { CgClose } from 'react-icons/cg';
 
 function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
   console.log('TASK rendered')
@@ -106,79 +106,85 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
     taskWindowOpen && (
       <div className={styles.wrapper}>
         <div className={styles.container}>
-          <button
-            className={styles.closeButton}
-            onClick={handleCancel}
-            // onKeyDown={handleCancel}
-            // tabIndex={0}
-            // role="button"
-          >    
-            <BsXSquare />
+          <button className={styles.closeButton} onClick={handleCancel}>
+            <CgClose />
           </button>
 
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <h1 className={styles.formTitle}>
-              {type === "add" ? "Add" : "Update"} Task
-            </h1>
-
-            <label htmlFor="task">
-              Task
-              <input
-                type="text"
-                id="task"
-                autoFocus
-                defaultValue={todo ? todo.task : ""}
-                placeholder="What do you want to accomplish?"
-                {...register("task", {
-                  required: "Task description cannot be empty.",
-                })}
-              />
-            </label>
-            {<p className={styles.error}>{errors.task?.message}</p>}
-
-            <label htmlFor="category">
-              Category
-              <select
-                id="category"
-                defaultValue={todo ? todo.category : "miscellaneous"}
-                {...register("category", { required: true })}
-              >
-                {Object.keys(categoryList).map((category) => (
-                  <option key={category} value={category} >
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label htmlFor="dueToggle">Set a deadline
-              <input type="checkbox" id="dueToggle" value={dueToggle} onChange={() => setDueToggle(!dueToggle)} checked={dueToggle} />
-            </label>
-            {dueToggle && (
-              <div>
-                <label htmlFor="deadline">
-                  Due date & time
-                  <input
-                    type="datetime-local"
-                    id="deadline"
-                    defaultValue={todo?.dueOn ? todo.due : initDueTime}
-                    {...register("due", {
-                      required:
-                        dueToggle && "Either set a deadline or disable it",
-                      min: {
-                        value: dtMin,
-                        message: "Deadline cannot be set in the past.",
-                      },
+            <fieldset>
+              <legend className={styles.formTitle}>
+                {type === "add" ? "Add" : "Update"} Task
+              </legend>
+              <div className={styles.formGroup}>
+                <label htmlFor="task">
+                  Task
+                  <textarea
+                    rows={5}
+                    //input before
+                    //type="text"
+                    id="task"
+                    className={errors.task?.message ? styles.error : ''}
+                    autoFocus
+                    defaultValue={todo ? todo.task : ""}
+                    placeholder="What do you want to accomplish?"
+                    {...register("task", {
+                      required: "Task description cannot be empty",
                     })}
-                  />
+                  ></textarea>
                 </label>
-                {<p className={styles.error}>{errors.due?.message}</p>}
+                {<p className={styles.errorMsg}>{errors.task?.message}</p>}
               </div>
-            )}
+
+              <label htmlFor="category">
+                Category
+                <select
+                  id="category"
+                  defaultValue={todo ? todo.category : "miscellaneous"}
+                  {...register("category", { required: true })}
+                >
+                  {Object.keys(categoryList).map((category) => (
+                    <option key={category} value={category}>
+                      {category[0].toUpperCase() + category.slice(1)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label htmlFor="dueToggle">
+                Set a deadline
+                <input
+                  type="checkbox"
+                  id="dueToggle"
+                  value={dueToggle}
+                  onChange={() => setDueToggle(!dueToggle)}
+                  checked={dueToggle}
+                />
+              </label>
+              {dueToggle && (
+                <div className={styles.formGroup}>
+                  <label htmlFor="deadline">
+                    Due date & time
+                    <input
+                      type="datetime-local"
+                      id="deadline"
+                      className={errors.due?.message ? styles.error : ''}
+                      defaultValue={todo?.dueOn ? todo.due : initDueTime}
+                      {...register("due", {
+                        required:
+                          dueToggle && "Either set a deadline or disable it",
+                        min: {
+                          value: dtMin,
+                          message: "Deadline cannot be set in the past.",
+                        },
+                      })}
+                    />
+                  </label>
+                  {<p className={styles.errorMsg}>{errors.due?.message}</p>}
+                </div>
+              )}
+            </fieldset>
             <div className={styles.buttonContainer}>
-              <button type="submit">
-                {type === "add" ? "Add" : "Update"}
-              </button>
+              <button className={styles.confirmBtn} type="submit">{type === "add" ? "Add" : "Update"}</button>
               <button onClick={handleCancel} onKeyDown={handleCancel}>
                 Cancel
               </button>

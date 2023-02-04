@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { allCategory, pickCategory } from '../slices/filterSlice';
 import styles from '../styles/Categories.module.scss';
 import SettingsCategories from './SettingsCategories';
+import { getLightFix } from '../helpers/HexToHSL';
 
 function Categories() {
   const [openSettings, setOpenSettings] = useState(false);
@@ -36,7 +37,8 @@ function Categories() {
       </div>
       <div className={styles.catWrapper}>
         <h3 className={styles.filterTitle}>
-        <RiFilterFill />CATEGORIES
+          <RiFilterFill />
+          CATEGORIES
         </h3>
         <div className={styles.categories}>
           {catArr.map((category) => (
@@ -47,6 +49,8 @@ function Categories() {
               }}
               className={`${styles.cUnit} ${
                 filterState.includes(category) ? styles.active : ""
+              } ${
+                getLightFix(categories[category].color) ? styles.whiteFix : ""
               }`}
               key={category}
               onClick={() => {

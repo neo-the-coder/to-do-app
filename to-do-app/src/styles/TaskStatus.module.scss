@@ -17,7 +17,14 @@
     background-color: white;
     // ----------------
     cursor: pointer;
-    & > svg {
+    span {
+        flex-grow: 1;
+    }
+    svg {
+        width: 1rem;
+        display: block;
+        border-right: 1px solid #212529;
+        padding-right: 0.25rem;
         font-size: 0.75rem;
         margin-right: 6px;
     }
@@ -61,4 +68,7 @@
 .active {
     background-color: #212529;
     color: whitesmoke;
+    svg {
+        border-color: whitesmoke;
+    }
 }

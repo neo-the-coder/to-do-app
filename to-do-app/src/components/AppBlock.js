@@ -10,10 +10,23 @@ function AppBlock({taskWindowOpen, setTaskWindowOpen}) {
     const filteredList = filterData(todoList, filters)
     //console.log('FILTERED', filteredList)
     return (
-    <div>
-        {filteredList.map(todo => <TodoItem key={todo.id} todo={todo} taskWindowOpen={taskWindowOpen} setTaskWindowOpen={setTaskWindowOpen}/>)}
-    </div>
-  )
+      <div>
+        {filteredList.length > 0 ? (
+          filteredList.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              taskWindowOpen={taskWindowOpen}
+              setTaskWindowOpen={setTaskWindowOpen}
+            />
+          ))
+        ) : (
+          <div className={styles.noTodo}>
+            <p>No todo in a given filters</p>
+          </div>
+        )}
+      </div>
+    );
 }
 
 export default AppBlock

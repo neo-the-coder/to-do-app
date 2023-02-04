@@ -33,11 +33,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 0.8rem;
-	border: 0.5px solid #212529;
-	border-radius: 50%;
+	font-size: 1.2rem;
+	//border: none;
+	border: 0.5px solid #c1c1c1;
+	border-radius: 10px;
 	background-color: whitesmoke;
-	color: #212529;
+	color: #777777;
 	//padding: 0.4rem;
 	//padding: 10px 35px 10px 15px;
 	padding: 0.3rem;
@@ -90,16 +91,21 @@
 		//padding: 10px 35px 10px 15px;
 		//rgba(0, 0, 0, 0.2)
 		// &:hover {
-		// 	background-color: var(--catColor);
-		// 	color: var(--catTextColor);
-		// }
+			// 	background-color: var(--catColor);
+			// 	color: var(--catTextColor);
+			// }
 		span {
 			font-weight: bold;
 			margin-left: 10px;
 		}
 		&.active {
-			background-color: var(--catColor);
+			background-color: var(--catColor) !important;
 			color: var(--catTextColor);
+			//text-shadow: none !important;
+		}
+		&.whiteFix {
+			background-color: #c1c1c1;
+			//text-shadow: 0px 0px 6px var(--catTextColor);
 		}
 	}
 }

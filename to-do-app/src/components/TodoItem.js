@@ -141,7 +141,7 @@ function TodoItem({ todo }) {
       )}
       {openConfirm && (
         <ConfirmationBox
-          message={<h2>It will be gone forever</h2>}
+          message={<p className={styles.confirmMsg}>It will be gone forever</p>}
           handleConfirmation={handleConfirmation}
           openConfirm={openConfirm}
           setOpenConfirm={setOpenConfirm}

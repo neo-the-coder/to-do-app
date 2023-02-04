@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/SettingsCategories.module.scss';
-import {v4 as uuid} from 'uuid';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategory, editCategory, deleteCategory, addCount } from '../slices/categorySlice';
 import ConfirmationBox from './ConfirmationBox';
-import getTextColor from '../helpers/HexToHSL';
-import { BsPencilSquare, BsTrash, BsXSquare } from 'react-icons/bs';
+import { getTextColor } from '../helpers/HexToHSL';
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { CgClose } from 'react-icons/cg';
 import { updateTodo } from '../slices/todoSlice';
 import { pickCategory } from '../slices/filterSlice';
 
@@ -33,11 +33,11 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
             // tabIndex={0}
             // role="button"
           >
-            <BsXSquare />
+            <CgClose />
           </button>
-          <h1>CATEGORIES</h1>
+          <h3>CATEGORY SETTINGS</h3>
           <div className={styles.catPanel}>
-            <div className={styles.catNButtons}>
+            <div className={styles.catWrapper}>
               <div className={styles.categoryList}>
                 {catArr.map((category) => (
                   <CategoryList
@@ -48,7 +48,7 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
                   />
                 ))}
               </div>
-              <button onClick={handleAdd}>Add more</button>
+              <button className={styles.addBtn} onClick={handleAdd}>Add more</button>
             </div>
             <div className={styles.options}>
               {openOptions ? (
@@ -78,15 +78,15 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
   const dispatch = useDispatch();
   const todoList = useSelector(state => state.todo.todoList);
   const message = (
-    <h2>
+    <h2 className={styles.confirmMsg}>
       All tasks assigned to{" "}
-      <span
+      <span className={styles.delCat}
         style={{ backgroundColor: categories[category].color, color: categories[category].textColor }}
       >
-        "{category}"
+        {category[0].toUpperCase() + category.slice(1)}
       </span>{" "}
       will be moved to{" "}
-      <span style={{ backgroundColor: "#777777" }}>"miscellaneous"</span>
+      <span className={styles.misCat}>Miscellaneous</span>
     </h2>
   );
   
@@ -117,8 +117,8 @@ function CategoryList({ category, setCategoryState, setOpenOptions }) {
         className={styles.category}
         style={{ backgroundColor: categories[category].color }}
       >
-        <p style={{ color: categories[category].textColor }}>{category}</p>
-        <div className={styles.button}>
+        <p style={{ color: categories[category].textColor }}>{category[0].toUpperCase() + category.slice(1)}</p>
+        <div className={styles.buttonGroup}>
           <button
             disabled={category === "miscellaneous"}
             onClick={
@@ -235,35 +235,40 @@ function CategoryOptions({ categoryState, openOptions, setOpenOptions }) {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
           <legend>{categoryState ? "Edit" : "Add"} a category</legend>
-          <label htmlFor="title">
-            Title
-            <input
-              type="text"
-              id="title"
-              autoFocus
-              placeholder="Add your category..."
-              defaultValue={categoryState ? categoryState : ""}
-              {...register("title", {
-                required: "Category title cannot be empty.",
-                validate: v => customValidation(v) || `There is "${v.toLowerCase()}" category already.`
-              })}
-            />
-          </label>
-          {<p className={styles.error}>{errors.title?.message}</p>}
-          <label htmlFor="color">
-            Color
-            <input
-              type="color"
-              id="color"
-              defaultValue={categoryState ? categories[categoryState].color : "#ffffff"}
-              {...register("color", { required: true })}
-            />
-          </label>
-          <div className={styles.buttonContainer}>
-            <button type="submit">{categoryState ? "Save" : "Add"}</button>
-            <button onClick={handleCancel}>Cancel</button>
+          <div className={styles.formGroup}>
+            <label htmlFor="title">
+              Title
+              <input
+                type="text"
+                id="title"
+                className={errors.title?.message ? styles.error : ''}
+                autoFocus
+                placeholder="Add your category..."
+                defaultValue={categoryState ? categoryState : ""}
+                {...register("title", {
+                  required: "Category title cannot be empty.",
+                  validate: v => customValidation(v) || `There is "${v[0].toUpperCase() + v.slice(1).toLowerCase()}" category already.`
+                })}
+              />
+            </label>
+            {<p className={styles.errorMsg}>{errors.title?.message}</p>}
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="color">
+              Color
+              <input
+                type="color"
+                id="color"
+                defaultValue={categoryState ? categories[categoryState].color : "#ffffff"}
+                {...register("color", { required: true })}
+              />
+            </label>
           </div>
         </fieldset>
+        <div className={styles.buttonContainer}>
+          <button className={styles.confirmBtn} type="submit">{categoryState ? "Save" : "Add"}</button>
+          <button onClick={handleCancel}>Cancel</button>
+        </div>
       </form>
     )
   );
