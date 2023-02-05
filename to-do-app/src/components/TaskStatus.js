@@ -30,9 +30,8 @@ function TaskStatus() {
           onClick={() => dispatch(allStatus())}
         >
           <BsListUl />
-          <span>
-            ALL<span className={styles.statusCount}>{allStatusCount}</span>
-          </span>
+          <span className={styles.statusTitle}>ALL</span>
+          <span className={styles.statusCount} key={allStatusCount + 'A'}>{allStatusCount}</span>
         </button>
 
         {statusesArr.map((status) => (
@@ -44,12 +43,8 @@ function TaskStatus() {
             onClick={() => dispatch(pickStatus(status))}
           >
             {statuses[status].icon}
-            <span>
-              {status.toUpperCase()}
-              <span className={styles.statusCount}>
-                {statuses[status].count}
-              </span>
-            </span>
+            <span className={styles.statusTitle}>{status.toUpperCase()}</span>
+            <span className={styles.statusCount} key={statuses[status].count + status[0]}>{statuses[status].count}</span>
           </button>
         ))}
       </div>

@@ -35,7 +35,7 @@ function Categories() {
           }`}
           onClick={() => dispatch(allCategory())}
         >
-          ALL<span>{allTaskCount}</span>
+          ALL<span className={styles.cCount} key={allTaskCount + 'A'}>{allTaskCount}</span>
         </button>
       </div>
       <div className={styles.catWrapper}>
@@ -66,7 +66,7 @@ function Categories() {
               }}
             >
               {category[0].toUpperCase() + category.slice(1)}
-              <span>{categories[category].count}</span>
+              <span className={styles.cCount} key={categories[category].count + category[0]}>{categories[category].count}</span>
             </button>
           ))}
         </div>

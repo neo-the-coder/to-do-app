@@ -17,12 +17,15 @@
     background-color: white;
     // ----------------
     cursor: pointer;
-    span {
-        flex-grow: 1;
-        .statusCount {
-            font-weight: bold;
-            margin-left: 10px;
-        }
+    .statusTitle {
+        margin: 0 0.375rem;
+        //flex-grow: 1;
+    }
+    .statusCount {
+        font-weight: bold;
+        margin-left: auto;
+        animation: count-animate 0.5s ease-in-out;
+
     }
     svg {
         width: 1rem;
@@ -30,7 +33,7 @@
         border-right: 1px solid #212529;
         padding-right: 0.25rem;
         font-size: 0.75rem;
-        margin-right: 6px;
+        //margin-right: 6px;
     }
     
 }
@@ -52,7 +55,7 @@
     display: flex;
     flex-direction: column;
     //align-items: center;
-    justify-content: center;
+    //justify-content: center;
     gap: 8px;
 }
 // .allButton {
@@ -74,5 +77,15 @@
     color: whitesmoke;
     svg {
         border-color: whitesmoke;
+    }
+}
+
+@keyframes count-animate {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
