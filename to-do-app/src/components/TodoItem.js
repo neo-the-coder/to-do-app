@@ -93,6 +93,7 @@ function TodoItem({ todo }) {
             {todo.status === "pending" ? (
               todo.dueOn ? (
                 <Timer
+                  pending={true}
                   id={todo.id}
                   deadline={todo.due}
                   status={todo.status}

@@ -15,6 +15,11 @@
 		background-color: whitesmoke;
 		color: #212529;
 		cursor: pointer;
+		transition: 0.3s ease background-color, color;
+		&:hover {
+			background-color: #212529;
+			color: whitesmoke;
+		}
 
 		&.allActive {
 			background-color: #212529;
@@ -74,32 +79,42 @@
 	//flex-grow: 1;
 	//align-self: flex-start;
 	flex-wrap: wrap;
-	gap: 10px;
+	gap: 12px;
 	
 	.cUnit {
 		font-size: 0.8rem;
-		border-radius: 12px;
+		border-radius: 14px;
 		border: 1px solid var(--catColor);
-		background-color: white;
+		background-color: transparent;
 		color: var(--catColor);
 		padding: 5px 10px;
 		cursor: pointer;
 		//padding: 10px 35px 10px 15px;
 		//rgba(0, 0, 0, 0.2)
-		// &:hover {
-			// 	background-color: var(--catColor);
-			// 	color: var(--catTextColor);
-			// }
-			&.active {
-				background-color: var(--catColor) !important;
+		transition: 0.3s ease background-color, color;
+		&:hover {
+				background-color: var(--catColor);
 				color: var(--catTextColor);
-				background-image:none !important;
-				//text-shadow: none !important;
+				text-shadow: none !important;
+			}
+			&.active {
+				background-color: var(--catColor);
+				color: var(--catTextColor);
+				border: 1px solid white;
+				outline: 2px solid var(--catColor);
+				outline-offset: 1px;
+				//background-image:none !important;
+				text-shadow: none !important;
 			}
 			&.whiteFix {
 				//background-color: #c1c1c1;
-				//text-shadow: 0px 0px 6px var(--catTextColor);
-				background-image: linear-gradient(0deg, whitesmoke 15%, #000000 50%, whitesmoke 85%);
+				text-shadow: 1px 1px 0.5px var(--catTextColor);
+				&.active {
+					border:none;
+					outline: 4px double var(--catTextColor);
+					outline-offset: -2px;
+				}
+				//background-image: linear-gradient(0deg, whitesmoke 15%, #000000 50%, whitesmoke 85%);
 			}
 		}
 	}

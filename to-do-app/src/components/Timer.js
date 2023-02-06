@@ -1,52 +1,69 @@
 import React from "react";
-import styles from '../styles/Timer.module.scss';
+import styles from "../styles/Timer.module.scss";
 import { useState, useEffect } from "react";
 import { differenceInMonths, differenceInYears } from "date-fns";
 import { useDispatch } from "react-redux";
 import { updateTodo } from "../slices/todoSlice";
 import { addStatus, subtractStatus } from "../slices/statusSlice";
 
-const Timer = ({ id, deadline, status, catColor }) => {
+const Timer = ({ pending, id, deadline, status, catColor }) => {
   const dispatch = useDispatch();
-  const [years, setYears] = useState(0);
-  const [months, setMonths] = useState(0);
-  const [days, setDays] = useState(0);
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  
-  const runTimer = (time) => {
+  let timeLeft = Math.floor((Date.parse(deadline) - Date.now()) / 1000);
+
+  // Visible time state initializes/updates if "pending" filter is ON
+  const [years, setYears] = useState(() =>
+    pending ? differenceInYears(Date.parse(deadline), Date.now()) : undefined
+  );
+  const [months, setMonths] = useState(() =>
+    pending
+      ? Math.floor(differenceInMonths(Date.parse(deadline), Date.now()) % 12)
+      : undefined
+  );
+  const [days, setDays] = useState(() =>
+    pending ? Math.floor((timeLeft / (60 * 60 * 24)) % 30.04) : undefined
+  );
+  const [hours, setHours] = useState(() =>
+    pending ? Math.floor((timeLeft / (60 * 60)) % 24) : undefined
+  );
+  const [minutes, setMinutes] = useState(() =>
+    pending ? Math.floor((timeLeft / 60) % 60) : undefined
+  );
+  const [seconds, setSeconds] = useState(() =>
+    pending ? Math.floor(timeLeft % 60) : undefined
+  );
+
+  const updateVisibleTime = (time) => {
     setYears(differenceInYears(Date.parse(deadline), Date.now()));
     setMonths(Math.floor(differenceInMonths(Date.parse(deadline), Date.now()) % 12));
-    setDays(Math.floor((time /(60 * 60 * 24)) % 30.04));
+    setDays(Math.floor((time / (60 * 60 * 24)) % 30.04));
     setHours(Math.floor((time / (60 * 60)) % 24));
     setMinutes(Math.floor((time / 60) % 60));
     setSeconds(Math.floor(time % 60));
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      console.log('Tik-Tok')
-      const time = Math.floor((Date.parse(deadline) - Date.now()) / 1000);
-      if (status === "pending" && time >= 0) {
-        runTimer(time);
-        if (time <= 0) {
+    if (pending) updateVisibleTime(timeLeft);
+  }, [deadline]);
+
+  useEffect(() => {
+    if (status === "pending") {
+      const interval = setInterval(() => {
+        timeLeft -= 1;
+        if (pending) updateVisibleTime(timeLeft);
+        if (timeLeft <= 0) {
           clearInterval(interval);
           dispatch(updateTodo({ id, status: "unaccomplished" }));
           dispatch(addStatus("unaccomplished"));
           dispatch(subtractStatus("pending"));
         }
-      } else {
+      }, 1000);
+      return () => {
         clearInterval(interval);
-        dispatch(updateTodo({ id, status: "unaccomplished" }));
-        dispatch(addStatus("unaccomplished"));
-        dispatch(subtractStatus("pending"));
-      }
-    }, 1000);
-    return () => clearInterval(interval);
+      };
+    }
   }, [deadline, status]);
 
-  return (
+  return pending ? (
     <div style={catColor} className={styles.timer} role="timer">
       <div className={styles.longer}>
         {years !== 0 ? (
@@ -94,14 +111,8 @@ const Timer = ({ id, deadline, status, catColor }) => {
           </div>
         ) : null}
       </div>
-      {/* <span id="year">{years !== 0 ? years + <br/> +(years > 1 ? ' years' : ' year') : null}</span> */}
-      {/* <span id="month">{months !== 0 ? (months < 10 ? "0" + months : months) + (months > 1 ? ' months' : ' month') : null}</span> */}
-      {/* <span id="day">{days !== 0 ? (days < 10 ? "0" + days : days) + (days > 1 ? ' days' : ' day') : null}</span> */}
-      {/* <span id="hour">{hours !== 0 ? (hours < 10 ? "0" + hours : hours) + (hours > 1 ? ' hours' : ' hour') : null}:</span> */}
-      {/* <span id="minute">{(minutes < 10 ? "0" + minutes : minutes) + (minutes > 1 ? ' mins' : ' min')}:</span> */}
-      {/* <span id="second">{seconds < 10 ? "0" + seconds : seconds}</span> */}
     </div>
-  );
+  ) : null;
 };
 
 export default Timer;
