@@ -1,32 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getInitValue = () => {
+  const localTodos = window.localStorage.getItem("todos");
+  if (localTodos) {
+    return JSON.parse(localTodos);
+  }
+  window.localStorage.setItem("todos", []);
+  return [];
+};
+
 const initValue = {
-  todoList: [
-    {
-      id: 2,
-      category: "work",
-      task: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quam eveniet adipisci ad sapiente quaerat molestiae natus ea nisi perspiciatis ut nihil, ullam aperiam cumque odit, quisquam deserunt quod. Inventore neque cum reprehenderit dolorem, tempora impedit quas numquam culpa ipsa fugiat nemo sapiente pariatur laborum labore dolorum ab hic ullam?",
-      dueOn: true,
-      due: "2022-11-05T16:43",
-      status: "unaccomplished",
-    },
-    {
-      id: 5,
-      category: "health",
-      task: "Bu sehir girdap",
-      dueOn: false,
-      due: "unlimited",
-      status: "pending",
-    },
-    {
-      id: 9,
-      category: "payment",
-      task: "Listen to me you little",
-      dueOn: true,
-      due: "2035-11-05T16:43",
-      status: "pending",
-    },
-  ],
+  todoList: getInitValue(),
 };
 
 const todoSlice = createSlice({
@@ -34,19 +18,23 @@ const todoSlice = createSlice({
   initialState: initValue,
   reducers: {
     addTodo: (state, action) => {
-      return {
+      const newState = {
         ...state,
         todoList: [...state.todoList, action.payload],
       };
+      window.localStorage.setItem("todos", JSON.stringify(newState.todoList));
+      return newState;
     },
     deleteTodo: (state, action) => {
-      return {
+      const newState = {
         ...state,
         todoList: state.todoList.filter((todo) => todo.id !== action.payload),
       };
+      window.localStorage.setItem("todos", JSON.stringify(newState.todoList));
+      return newState;
     },
     updateTodo: (state, action) => {
-      return {
+      const newState = {
         ...state,
         todoList: state.todoList.map((todo) => {
           return todo.id === action.payload.id
@@ -54,6 +42,8 @@ const todoSlice = createSlice({
             : todo;
         }),
       };
+      window.localStorage.setItem("todos", JSON.stringify(newState.todoList));
+      return newState;
     },
   },
 });

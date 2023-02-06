@@ -1,20 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BsCalendarCheck, BsCalendarX, BsHourglassSplit } from "react-icons/bs";
 
-const initValue = {
-  pending: { icon: <BsHourglassSplit />, bg: "#e4e4e4", count: 250 },
-  accomplished: { icon: <BsCalendarCheck />, bg: "#89dc94", count: 50 },
-  unaccomplished: { icon: <BsCalendarX />, bg: "#d33537", count: 10 },
-  //#c74244
-  //#fefadd
-  //#f9f395
+const getInitValue = () => {
+  const initStatusState = {
+    pending: { icon: <BsHourglassSplit />, bg: "#e4e4e4", count: 0 },
+    accomplished: { icon: <BsCalendarCheck />, bg: "#89dc94", count: 0 },
+    unaccomplished: { icon: <BsCalendarX />, bg: "#d33537", count: 0 },
+  };
+  let localStatusCount = window.localStorage.getItem("statusCounts");
+  if (localStatusCount) {
+    localStatusCount = JSON.parse(localStatusCount);
+    for (const status in localStatusCount) {
+      initStatusState[status].count = localStatusCount[status];
+    }
+  }
+  return initStatusState;
 };
+
+const initValue = getInitValue();
 
 const statusSlice = createSlice({
   name: "statuses",
   initialState: initValue,
   reducers: {
     addStatus: (state, action) => {
+      const localCounts = {};
+      for (const status in state) {
+        localCounts[status] =
+          status === action.payload
+            ? state[status].count + 1
+            : state[status].count;
+      }
+      window.localStorage.setItem("statusCounts", JSON.stringify(localCounts));
       return {
         ...state,
         [action.payload]: {
@@ -24,6 +41,14 @@ const statusSlice = createSlice({
       };
     },
     subtractStatus: (state, action) => {
+      const localCounts = {};
+      for (const status in state) {
+        localCounts[status] =
+          status === action.payload
+            ? state[status].count - 1
+            : state[status].count;
+      }
+      window.localStorage.setItem("statusCounts", JSON.stringify(localCounts));
       return {
         ...state,
         [action.payload]: {
