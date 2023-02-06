@@ -10,12 +10,11 @@
 	justify-content: center;
 	align-items: center;
 }
+
 .container {
 	background-color: whitesmoke;
 	max-width: 500px;
-	//height: 50vh;
 	width: 100%;
-	//margin: 0 auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -23,6 +22,7 @@
 	border-radius: 20px;
 	position: relative;
 }
+
 .closeButton {
 	position: absolute;
 	top: 0.5rem;
@@ -37,6 +37,7 @@
 	justify-content: center;
 	cursor: pointer;
 	transition: 0.1s ease color;
+
 	&:hover {
 		color: #212529;
 	}
@@ -47,15 +48,10 @@
 	width: 100%;
 
 	.formGroup {
-		//width: 100%;
 		.errorMsg {
 			font-size: 0.9rem;
 			margin-block: 0;
 			margin: 0.5rem 0 2rem 0.5rem;
-			//padding: 0.5rem;
-			//padding-bottom: 0;
-			//margin-left: 0.5rem;
-			//min-height: 1rem;
 			color: red;
 		}
 	}
@@ -64,14 +60,7 @@
 fieldset {
 	padding: 0 1rem;
 	border-radius: 12px 12px 0 0;
-	//align-self: stretch;
-	//flex-grow: 1;
-	//display: flex;
-	//flex-direction: column;
-	//align-items: flex-start;
-	//justify-content: space-evenly;
 
-	//height: 94%;
 	legend {
 		font-size: 1.4rem;
 		text-align: center;
@@ -87,24 +76,16 @@ fieldset {
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+
 		&[for=dueToggle] {
 			margin-bottom: 2rem;
 			width: 40%;
 		}
 
-		// 		input,
-		// 		select {
-		// 			margin-top: 0.5rem;
-		// 			margin-bottom: 2rem;
-		// 			width: 100%;
-		// 			padding: 1rem;
-		// 			border: none;
-		// 			background-color: white;
-		// 			font-size: 1.6rem;
-		// 		}
 	}
 
-	input, textarea {
+	input,
+	textarea {
 		display: block;
 		margin-top: 0.5rem;
 		border-radius: 6px;
@@ -113,16 +94,19 @@ fieldset {
 		box-sizing: border-box;
 		width: 100%;
 		font-size: 1.1rem;
+
 		&.error {
 			border-color: red;
 			outline: 1.5px solid red;
 		}
 	}
+
 	textarea {
 		min-height: 2.375rem;
-    	max-height: 11.875rem;
-    	resize: vertical;
+		max-height: 11.875rem;
+		resize: vertical;
 	}
+
 	select {
 		display: block;
 		margin-top: 0.5rem;
@@ -133,31 +117,28 @@ fieldset {
 
 		width: 100%;
 		font-size: 1.1rem;
-		//margin-left: 1rem;
 		background-color: whitesmoke;
 
 	}
 
 	input[type="checkbox"] {
-		//width: 5rem;
-		-ms-transform: scale(1.5); /* IE */
-		-moz-transform: scale(1.5); /* FF */
-		-webkit-transform: scale(1.5); /* Safari and Chrome */
-		-o-transform: scale(1.5); /* Opera */
+		-ms-transform: scale(1.5);
+		/* IE */
+		-moz-transform: scale(1.5);
+		/* FF */
+		-webkit-transform: scale(1.5);
+		/* Safari and Chrome */
+		-o-transform: scale(1.5);
+		/* Opera */
 		transform: scale(1.25);
 		display: inline-block;
 		width: initial;
 		margin-left: 1rem;
-		//margin-bottom: 2rem;
-		//padding: 30px;
+
 	}
 
-	// input[type="color"] {
-	// 	width: 100%;
-	// 	padding: 0.25rem;
-	// 	height: 2.1rem;
-	// }
 }
+
 .buttonContainer {
 	display: flex;
 	flex-direction: row-reverse;
@@ -181,43 +162,5 @@ fieldset {
 			border-radius: 0 0 12px 0;
 		}
 
-		// &:hover {
-		// 	background-color: #212529;
-		// 	color: whitesmoke;
-		// }
 	}
 }
-
-
-
-// .formTitle {
-// 	color: black;
-// 	font-size: 2rem;
-// 	font-weight: 600;
-// 	margin-bottom: 2rem;
-// 	//text-transform: capitalize;
-// }
-// .form {
-// 	width: 100%;
-// 	label {
-// 		font-size: 1.6rem;
-// 		color: black;
-// 		input,
-// 		select {
-// 			margin-top: 0.5rem;
-// 			margin-bottom: 2rem;
-// 			width: 100%;
-// 			padding: 1rem;
-// 			border: none;
-// 			background-color: white;
-// 			font-size: 1.6rem;
-// 		}
-// 	}
-// }
-// .buttonContainer {
-// 	display: flex;
-// 	justify-content: flex-start;
-// 	align-items: center;
-// 	margin-top: 2rem;
-// 	gap: 1rem;
-// }

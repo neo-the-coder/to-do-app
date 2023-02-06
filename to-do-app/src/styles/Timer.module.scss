@@ -1,9 +1,5 @@
 .timer {
-	// display: inline-block;
-    // & > span {
-    //     padding: 0 0.25rem;
-    //     color: yellow;
-    // }
+
     & .longer, .shorter {
         background-color: var(--catColor);
         color: var(--catTextColor);
@@ -29,13 +25,8 @@
     align-items: center;
     justify-content: center;
     width: min-content;
-
-    // background-color: black;
-    // color: white;
-    // border-radius: 5px;
     width: 40px;
     padding: 3px;
-    //padding: 0 0.5rem;
     & :first-child::after {
         content: "\A";
         white-space: pre; 
@@ -54,11 +45,5 @@
 }
 
 .colon {
-    //font-size: 1.25rem;
-    //background-color: black;
-    //color: white;
-    //border-radius: 5px;
-    // width: 35px;
-    //padding: 0 2px 3px 2px;
     padding-bottom: 6px;
 }

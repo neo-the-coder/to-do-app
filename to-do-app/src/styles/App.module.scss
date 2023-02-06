@@ -1,9 +1,12 @@
-h1 {
+.appHeader {
 	text-align: center;
+	margin-top: 0;
+	padding-top: 1.34rem;
 }
 
 .app__wrapper {
-	max-width: 750px;
+	max-width: 900px;
+	min-width: 500px;
 	width: 100%;
 	margin: 0 auto;
 }
@@ -12,6 +15,7 @@ h1 {
 	position: fixed;
 	right: 5%;
 	bottom: 5%;
+	z-index: 1;
 	padding: 0.5rem;
 	border: 2px solid #212529;
 	background-color: #212529;
@@ -26,5 +30,33 @@ h1 {
 	&:hover {
 		background-color: whitesmoke;
 		color: #212529;
+	}
+}
+footer {
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: whitesmoke;
+	border-top: 0.5px solid #77777777;
+	color: #212529;
+	word-spacing: 2px;
+	text-align: center;
+	font-size: 1.1rem;
+	padding: 0.5rem;
+	svg {
+		margin-bottom: -3px;
+		font-size: 1rem;
+		color: hsl(0, 100%, 45%);
+	}
+	a {
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+		&:visited {
+			color: #212529;
+		}
+
 	}
 }

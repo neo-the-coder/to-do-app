@@ -3,14 +3,14 @@ import AppBlock from "./components/AppBlock";
 import FilterBlock from "./components/FilterBlock";
 import { useState } from "react";
 import TaskWindow from "./components/TaskWindow";
-import { BsPlus } from "react-icons/bs";
+import { BsHeartFill, BsPlus } from "react-icons/bs";
 
 function App() {
   const [taskWindowOpen, setTaskWindowOpen] = useState(false);
 
   return (
     <div className={styles.app}>
-      <h1>TO-DO LIST</h1>
+      <h1 className={styles.appHeader}>React Todo App</h1>
       <div className={styles.app__wrapper}>
         <FilterBlock />
         <AppBlock
@@ -30,6 +30,7 @@ function App() {
         taskWindowOpen={taskWindowOpen}
         setTaskWindowOpen={setTaskWindowOpen}
       />
+    <footer>Made with <BsHeartFill /> by <a href="https://github.com/neo-the-coder">Kamran Zeynalov</a></footer>
     </div>
   );
 }

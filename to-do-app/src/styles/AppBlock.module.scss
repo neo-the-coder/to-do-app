@@ -1,5 +1,5 @@
 .todoList {
-    margin-bottom: 2.5rem;
+    padding-bottom: 4rem;
 }
 
 .noTodo {
@@ -26,12 +26,13 @@
 }
 
 @keyframes append-animate {
-	from {
-		transform: translateY(-100%);
-		opacity: 0;
-	}
-	to {
-		transform: translateY(0%);
-		opacity: 1;
-	}
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
 }

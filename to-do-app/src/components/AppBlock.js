@@ -33,7 +33,7 @@ function AppBlock({ taskWindowOpen, setTaskWindowOpen }) {
       {/* Run Timer when non-pending status was filtered */}
       {!filters.status.includes("pending") && filters.status.length !== 0
         ? timedTodo.map((todo) => (
-            <Timer id={todo.id} deadline={todo.due} status={todo.status} />
+            <Timer key={todo.id} id={todo.id} deadline={todo.due} status={todo.status} />
           ))
         : null}
     </div>
