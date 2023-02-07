@@ -1,3 +1,9 @@
+# React Todo App
+
+Todo app with ability to set a deadline and add custom categories to assign todos.
+
+Live demo: https://react-todo-customizable.netlify.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
