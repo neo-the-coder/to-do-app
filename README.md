@@ -3,7 +3,8 @@
 This is a basic to-do app with ability to set a deadline and create custom categories to assign tasks to. You can filter tasks based on their status and category. All progress is saved in the local storage. I used the following tools in this project:
 -	Redux – for state management;
 -	React-hook-form for form validation;
--	React-icons for icons.
+-	React-icons for icons;
+- SCSS for styling.
 
 Live demo: https://react-todo-customizable.netlify.app/
 
