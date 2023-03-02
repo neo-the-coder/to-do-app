@@ -19,13 +19,18 @@ function Categories() {
     0
   );
 
+  const handleSettings = () => {
+    setOpenSettings(true);
+    document.body.style.overflow = "hidden";
+  }
+
   return (
     <>
       <div className={styles.leftSide}>
         <button
           title="Settings"
           className={styles.catSettings}
-          onClick={() => setOpenSettings(true)}
+          onClick={handleSettings}
         >
           <RxHamburgerMenu />
         </button>

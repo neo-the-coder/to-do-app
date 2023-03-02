@@ -1,49 +1,47 @@
 .appHeader {
 	text-align: center;
-	margin-top: 0;
-	padding-top: 1.34rem;
+	// margin-top: 0;
+	// padding-top: 1.34rem;
 }
 
 .app__wrapper {
+	flex: 1;
 	max-width: 900px;
-	min-width: 500px;
-	width: 100%;
 	margin: 0 auto;
+	padding: 0 50px;
 }
 
 .addButton {
 	position: fixed;
-	right: 5%;
-	bottom: 5%;
+	right: 3rem;
+	// right: calc(50% - 30px);
+	bottom: 4.5rem;
 	z-index: 1;
-	padding: 0.5rem;
+	padding: 0.25rem;
 	border: 2px solid #212529;
-	background-color: #212529;
-	color: whitesmoke;
-	border-radius: 50%;
-	font-size: 2.5rem;
+	background-color: whitesmoke;
+	color: #212529;
+	border-radius: 20%;
+	font-size: 2rem;
 	cursor: pointer;
 	transition: 0.3s ease background-color, color;
 	svg {
 		display: block;
 	}
 	&:hover {
-		background-color: whitesmoke;
-		color: #212529;
+		background-color: #212529;
+		color: whitesmoke;
 	}
 }
 footer {
-	box-sizing: border-box;
-	position: absolute;
-	bottom: 0;
-	width: 100%;
+	margin-top: 5rem;
 	background-color: whitesmoke;
 	border-top: 0.5px solid #77777777;
 	color: #212529;
 	word-spacing: 2px;
 	text-align: center;
 	font-size: 1.1rem;
-	padding: 0.5rem;
+	padding: 1rem;
 	svg {
 		margin-bottom: -3px;
 		font-size: 1rem;
@@ -58,5 +56,11 @@ footer {
 			color: #212529;
 		}
 
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.app__wrapper {
+		padding: 0 0 0 10px;
 	}
 }

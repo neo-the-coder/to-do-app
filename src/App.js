@@ -9,7 +9,7 @@ function App() {
   const [taskWindowOpen, setTaskWindowOpen] = useState(false);
 
   return (
-    <div className={styles.app}>
+    <>
       <h1 className={styles.appHeader}>React Todo App</h1>
       <div className={styles.app__wrapper}>
         <FilterBlock />
@@ -18,6 +18,7 @@ function App() {
           setTaskWindowOpen={setTaskWindowOpen}
         />
       </div>
+      <footer>Made with <BsHeartFill /> by <a href="https://github.com/neo-the-coder">Kamran Zeynalov</a></footer>
       <button
         onClick={() => setTaskWindowOpen(true)}
         title="Add task"
@@ -30,8 +31,7 @@ function App() {
         taskWindowOpen={taskWindowOpen}
         setTaskWindowOpen={setTaskWindowOpen}
       />
-    <footer>Made with <BsHeartFill /> by <a href="https://github.com/neo-the-coder">Kamran Zeynalov</a></footer>
-    </div>
+    </>
   );
 }
 

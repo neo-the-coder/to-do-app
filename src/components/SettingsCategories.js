@@ -26,13 +26,18 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
     setOpenOptions(true);
   };
 
+  const handleClosing = () => {
+    setOpenSettings(false)
+    document.body.style.overflow = "auto scroll";
+  }
+
   return (
     openSettings && (
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <button
             className={styles.closeButton}
-            onClick={() => setOpenSettings(false)}
+            onClick={handleClosing}
           >
             <CgClose />
           </button>

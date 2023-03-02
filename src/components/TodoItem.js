@@ -67,6 +67,7 @@ function TodoItem({ todo }) {
         <div className={styles.todoDetails}>
           <div className={styles.description}>
             <button
+              title="Mark Complete"
               className={styles.button}
               onClick={() => handleAccomplishment(todo.status)}
               disabled={todo.status === "unaccomplished"}
@@ -107,6 +108,7 @@ function TodoItem({ todo }) {
         </div>
         <div className={styles.todoButtons}>
           <button
+            title="Edit"
             className={styles.button}
             onClick={handleUpdate}
             style={catColor}
@@ -114,6 +116,7 @@ function TodoItem({ todo }) {
             <BsPencilSquare />
           </button>
           <button
+            title="Delete"
             className={styles.button}
             onClick={handleDelete}
             style={catColor}
