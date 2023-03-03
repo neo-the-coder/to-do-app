@@ -87,3 +87,29 @@
         }
     }
 }
+
+@media only screen and (max-width: 425px) {
+    .container {
+        .confirmMsg {
+            font-size: 0.9rem;
+
+            .warning {
+                margin-top: 2rem;
+                ;
+                font-size: 1.75rem;
+            }
+
+            .customMsg {
+                p {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        .buttonContainer {
+            button {
+                font-size: 1rem;
+            }
+        }
+    }
+}

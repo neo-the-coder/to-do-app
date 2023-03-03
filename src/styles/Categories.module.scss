@@ -38,8 +38,8 @@
 	font-size: 1.2rem;
 	border: 0.5px solid #c1c1c1;
 	border-radius: 10px;
-	background-color: whitesmoke;
-	color: #777777;
+	background-color: hsl(0, 0%, 88%);
+	color: #212529;
 	padding: 0.3rem;
 	cursor: pointer;
 	transition: 0.3s ease background-color, color;
@@ -129,5 +129,27 @@
 
 	to {
 		opacity: 1;
+	}
+}
+
+@media only screen and (max-width: 425px) {
+	.leftSide {
+		.allButton {
+			font-size: 1rem;
+		}
+	}
+
+	.catWrapper {
+		.filterTitle {
+			font-size: 1.2rem;
+		}
+	}
+
+	.categories {
+		margin-top: 1rem;
+
+		.cUnit {
+			font-size: 1rem;
+		}
 	}
 }

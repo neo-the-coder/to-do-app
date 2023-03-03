@@ -13,9 +13,8 @@
 
 .addButton {
 	position: fixed;
-	right: 3rem;
-	// right: calc(50% - 30px);
-	bottom: 4.5rem;
+	right: calc(50% - 30px);
+	bottom: 5rem;
 	z-index: 1;
 	padding: 0.25rem;
 	border: 2px solid #212529;
@@ -61,6 +60,11 @@ footer {
 
 @media only screen and (max-width: 600px) {
 	.app__wrapper {
-		padding: 0 0 0 10px;
+		padding: 0 16px;
+	}
+
+	.addButton {
+		right: 40px;
+		bottom: 40px;
 	}
 }

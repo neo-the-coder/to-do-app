@@ -43,7 +43,7 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
           </button>
           <h3>CATEGORY SETTINGS</h3>
           <div className={styles.catPanel}>
-            <div className={styles.catWrapper}>
+            <div className={styles.catWrapper} style={{display: openOptions ? 'none' : 'block'}}>
               <div className={styles.categoryList}>
                 {catArr.map((category) => (
                   <CategoryList

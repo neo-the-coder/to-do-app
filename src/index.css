@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;
-  min-width: 445px;
+  min-width: 335px;
 }
 #root {
   position: relative;

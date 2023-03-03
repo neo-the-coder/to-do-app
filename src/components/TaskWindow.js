@@ -94,7 +94,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
                 <label htmlFor="task">
                   Task
                   <textarea
-                    rows={5}
+                    rows={3}
                     //input before
                     //type="text"
                     id="task"

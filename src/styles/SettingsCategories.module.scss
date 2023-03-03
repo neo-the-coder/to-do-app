@@ -138,9 +138,10 @@
 		align-items: center;
 		justify-content: center;
 
-		& > p {
+		&>p {
 			text-align: center;
 		}
+
 		.form {
 			display: flex;
 			flex-direction: column;
@@ -255,5 +256,65 @@
 	.misCat {
 		background-color: #777777;
 		color: white;
+	}
+}
+
+@media only screen and (max-width: 425px) {
+	.catPanel {
+		flex-direction: column-reverse;
+
+		.catWrapper {
+			width: 90%;
+
+			.categoryList {
+				border-radius: 12px 12px 0 0;
+				height: 200px;
+			}
+
+			.addBtn {
+				border-radius: 0 0 12px 12px;
+			}
+		}
+
+		.options {
+			.form {
+				.formGroup {
+					.errorMsg {
+						font-size: 0.8rem;
+					}
+				}
+
+				fieldset {
+					padding-bottom: 1rem;
+
+					legend {
+						font-size: 1.2rem;
+					}
+
+					label {
+						font-size: 1.2rem;
+					}
+
+					input[type="text"] {
+						font-size: 1rem;
+						padding: 0.25rem 0.5rem;
+					}
+
+					input[type="color"] {
+						padding: 0.1rem;
+						height: 1.8rem;
+					}
+				}
+
+				.buttonContainer {
+					justify-content: space-between;
+
+					button {
+						font-size: 1rem;
+						border-radius: 0 0 0 12px;
+					}
+				}
+			}
+		}
 	}
 }
