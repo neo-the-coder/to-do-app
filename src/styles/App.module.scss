@@ -27,11 +27,8 @@
 	svg {
 		display: block;
 	}
-	&:hover {
-		background-color: #212529;
-		color: whitesmoke;
-	}
 }
+
 footer {
 	margin-top: 5rem;
 	background-color: whitesmoke;
@@ -48,9 +45,7 @@ footer {
 	}
 	a {
 		text-decoration: none;
-		&:hover {
-			text-decoration: underline;
-		}
+		
 		&:visited {
 			color: #212529;
 		}
@@ -66,5 +61,17 @@ footer {
 	.addButton {
 		right: 40px;
 		bottom: 40px;
+	}
+}
+
+@media(hover: hover) {
+    .addButton:hover {
+        background-color: #212529;
+		color: whitesmoke;
+    }
+	footer {
+		a:hover {
+			text-decoration: underline;
+		}
 	}
 }

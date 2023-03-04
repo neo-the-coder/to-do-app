@@ -15,11 +15,6 @@
 		cursor: pointer;
 		transition: 0.3s ease background-color, color;
 
-		&:hover {
-			background-color: #212529;
-			color: whitesmoke;
-		}
-
 		&.allActive {
 			background-color: #212529;
 			color: whitesmoke;
@@ -43,11 +38,6 @@
 	padding: 0.3rem;
 	cursor: pointer;
 	transition: 0.3s ease background-color, color;
-
-	&:hover:enabled {
-		background-color: #212529;
-		color: whitesmoke;
-	}
 }
 
 .catWrapper {
@@ -87,12 +77,6 @@
 		padding: 5px 10px;
 		cursor: pointer;
 		transition: 0.3s ease background-color, color;
-
-		&:hover {
-			background-color: var(--catColor);
-			color: var(--catTextColor);
-			text-shadow: none !important;
-		}
 
 		&.active {
 			background-color: var(--catColor);
@@ -151,5 +135,23 @@
 		.cUnit {
 			font-size: 1rem;
 		}
+	}
+}
+
+@media(hover: hover) {
+	.allButton:hover {
+		background-color: #212529;
+		color: whitesmoke;
+	}
+
+	.catSettings:hover:enabled {
+		background-color: #212529;
+		color: whitesmoke;
+	}
+
+	.cUnit:hover {
+		background-color: var(--catColor);
+		color: var(--catTextColor);
+		text-shadow: none !important;
 	}
 }

@@ -83,11 +83,6 @@
   cursor: pointer;
   transition: 0.3s ease background-color, color;
 
-  &:hover:enabled {
-    background-color: var(--catColor);
-    color: whitesmoke;
-  }
-
   &:disabled {
     cursor: not-allowed;
     color: #a0a6ab;
@@ -149,5 +144,12 @@
     // align-self: flex-end;
     // padding: 0.5rem;
     border-radius: 20px 20px 0 0;
+  }
+}
+
+@media(hover: hover) {
+  .button:hover:enabled {
+    background-color: var(--catColor);
+    color: whitesmoke;
   }
 }

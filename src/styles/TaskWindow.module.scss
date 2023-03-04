@@ -37,10 +37,6 @@
 	justify-content: center;
 	cursor: pointer;
 	transition: 0.1s ease color;
-
-	&:hover {
-		color: #212529;
-	}
 }
 
 .form {
@@ -193,5 +189,11 @@ fieldset {
 				margin-bottom: 1rem;
 			}
 		}
+	}
+}
+
+@media(hover: hover) {
+	.closeButton:hover {
+		color: #212529;
 	}
 }
