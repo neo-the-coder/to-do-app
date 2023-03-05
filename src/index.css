@@ -14,3 +14,18 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.scrollbar-fix-body {
+	margin-right: var(--scrollbar-width);
+  overflow: hidden;
+}
+
+.scrollbar-fix-button {
+  right: calc(50% - calc(28px - var(--scrollbar-width)/2 )) !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .scrollbar-fix-button {
+    right: calc(34px + var(--scrollbar-width)) !important;
+  }
+}

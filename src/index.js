@@ -4,6 +4,9 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import { store } from './app/store';
+import { setScrollbarWidth } from './styles/LayoutFix';
+
+setScrollbarWidth();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

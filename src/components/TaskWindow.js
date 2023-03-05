@@ -9,6 +9,7 @@ import { addCount, subtractCount } from "../slices/categorySlice";
 import { dtToSlicedISO, dtTZFixed } from "../helpers/DateTimeValue";
 import { CgClose } from 'react-icons/cg';
 import { addStatus, subtractStatus } from "../slices/statusSlice";
+import { modalOFF } from "../styles/LayoutFix";
 
 function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
   const [dueToggle, setDueToggle] = useState(todo ? todo.dueOn : false);
@@ -34,6 +35,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
     setTaskWindowOpen(false);
     reset();
     setDueToggle(todo ? todo.dueOn : false);
+    modalOFF();
   };
 
   const onSubmit = (data) => {
@@ -75,7 +77,14 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
     
     setTaskWindowOpen(false);
     reset();
+    modalOFF();
   };
+
+  const moveCaretAtEnd = (e) => {
+    let temp_value = e.target.value;
+    e.target.value = '';
+    e.target.value = temp_value;
+  }
 
   return (
     taskWindowOpen && (
@@ -100,6 +109,7 @@ function TaskWindow({ type, todo, taskWindowOpen, setTaskWindowOpen }) {
                     id="task"
                     className={errors.task?.message ? styles.error : ''}
                     autoFocus
+                    onFocus={(e) => moveCaretAtEnd(e)}
                     defaultValue={todo ? todo.task : ""}
                     placeholder="What do you want to accomplish?"
                     {...register("task", {

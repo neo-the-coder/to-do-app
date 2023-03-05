@@ -6,6 +6,7 @@ import { allCategory, pickCategory } from "../slices/filterSlice";
 import styles from "../styles/Categories.module.scss";
 import SettingsCategories from "./SettingsCategories";
 import { getLightFix } from "../helpers/HexToHSL";
+import { modalON } from "../styles/LayoutFix";
 
 function Categories() {
   const [openSettings, setOpenSettings] = useState(false);
@@ -21,7 +22,7 @@ function Categories() {
 
   const handleSettings = () => {
     setOpenSettings(true);
-    document.body.style.overflow = "hidden";
+    modalON();
   }
 
   return (

@@ -5,7 +5,7 @@ import styles from "../styles/AppBlock.module.scss";
 import Timer from "./Timer";
 import TodoItem from "./TodoItem";
 
-function AppBlock({ taskWindowOpen, setTaskWindowOpen }) {
+function AppBlock() {
   const todoList = useSelector((state) => state.todo.todoList);
   const filters = useSelector((state) => state.filter);
 
@@ -21,13 +21,11 @@ function AppBlock({ taskWindowOpen, setTaskWindowOpen }) {
           <TodoItem
             key={todo.id}
             todo={todo}
-            taskWindowOpen={taskWindowOpen}
-            setTaskWindowOpen={setTaskWindowOpen}
           />
         ))
       ) : (
         <div className={styles.noTodo}>
-          <p>No todo in a given filters</p>
+          <p>No todo for the current filter options</p>
         </div>
       )}
       {/* Run Timer when non-pending status was filtered */}

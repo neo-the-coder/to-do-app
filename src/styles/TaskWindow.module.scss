@@ -15,9 +15,9 @@
 	background-color: whitesmoke;
 	max-width: 500px;
 	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
 	padding: 1rem;
 	border-radius: 20px;
 	position: relative;
@@ -195,5 +195,12 @@ fieldset {
 @media(hover: hover) {
 	.closeButton:hover {
 		color: #212529;
+	}
+}
+
+@media only screen and (max-height: 600px) {
+	.container {
+		max-height: 75vh;
+		overflow-y: auto;
 	}
 }

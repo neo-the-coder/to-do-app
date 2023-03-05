@@ -13,15 +13,15 @@
 
 .addButton {
 	position: fixed;
-	right: calc(50% - 30px);
-	bottom: 5rem;
+	right: calc(50% - 28px);
+	bottom: 4rem;
 	z-index: 1;
 	padding: 0.25rem;
 	border: 2px solid #212529;
 	background-color: whitesmoke;
 	color: #212529;
 	border-radius: 20%;
-	font-size: 2rem;
+	font-size: 2.75rem;
 	cursor: pointer;
 	transition: 0.3s ease background-color, color;
 	svg {
@@ -59,8 +59,8 @@ footer {
 	}
 
 	.addButton {
-		right: 40px;
-		bottom: 40px;
+		right: 34px;
+		// bottom: 40px;
 	}
 }
 

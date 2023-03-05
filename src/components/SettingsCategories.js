@@ -14,6 +14,7 @@ import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { CgClose } from "react-icons/cg";
 import { updateTodo } from "../slices/todoSlice";
 import { pickCategory } from "../slices/filterSlice";
+import { modalOFF } from "../styles/LayoutFix";
 
 function SettingsCategories({ openSettings, setOpenSettings }) {
   const [openOptions, setOpenOptions] = useState(false);
@@ -27,8 +28,8 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
   };
 
   const handleClosing = () => {
-    setOpenSettings(false)
-    document.body.style.overflow = "auto scroll";
+    setOpenSettings(false);
+    modalOFF();
   }
 
   return (
@@ -43,7 +44,7 @@ function SettingsCategories({ openSettings, setOpenSettings }) {
           </button>
           <h3>CATEGORY SETTINGS</h3>
           <div className={styles.catPanel}>
-            <div className={styles.catWrapper} style={{display: openOptions ? 'none' : 'block'}}>
+            <div className={`${styles.catWrapper} ${openOptions ? styles.hideCategories : ""}`}>
               <div className={styles.categoryList}>
                 {catArr.map((category) => (
                   <CategoryList

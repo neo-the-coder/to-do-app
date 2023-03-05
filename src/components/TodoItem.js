@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { subtractCount } from "../slices/categorySlice";
 import { addStatus, subtractStatus } from "../slices/statusSlice";
 import { deleteTodo, updateTodo } from "../slices/todoSlice";
+import { modalON } from "../styles/LayoutFix";
 import styles from "../styles/TodoItem.module.scss";
 import ConfirmationBox from "./ConfirmationBox";
 import TaskWindow from "./TaskWindow";
@@ -45,7 +46,10 @@ function TodoItem({ todo }) {
     dispatch(subtractStatus(status));
   };
 
-  const handleUpdate = () => setOpenUpdate(true);
+  const handleUpdate = () => {
+    setOpenUpdate(true);
+    modalON();
+  }
 
   const handleDelete = () => setOpenConfirm(true);
 

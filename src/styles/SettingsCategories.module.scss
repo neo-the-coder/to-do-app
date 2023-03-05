@@ -245,12 +245,16 @@
 	}
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 500px) {
 	.catPanel {
 		flex-direction: column-reverse;
 
 		.catWrapper {
 			width: 90%;
+
+			&.hideCategories {
+				display: none;
+			}
 
 			.categoryList {
 				border-radius: 12px 12px 0 0;
@@ -320,5 +324,84 @@
 	.addBtn:hover {
 		background-color: #212529;
 		color: whitesmoke;
+	}
+}
+
+@media only screen and (max-height: 600px) {
+	.container {
+		max-height: 75vh;
+		overflow-y: auto;
+	}
+
+	.catPanel {
+		.catWrapper {
+			.categoryList {
+				height: 250px;
+			}
+		}
+	}
+}
+
+@media only screen and (max-height: 515px) {
+	.container {
+		max-height: 75vh;
+		overflow-y: auto;
+
+		h3 {
+			font-size: 1.1rem;
+		}
+	}
+
+	.catPanel {
+		.catWrapper {
+			&.hideCategories {
+				display: none;
+			}
+			.categoryList {
+				height: 150px;
+			}
+		}
+
+		.options {
+			.form {
+				.formGroup {
+					.errorMsg {
+						font-size: 0.8rem;
+						min-height: 0;
+					}
+				}
+
+				fieldset {
+					padding-bottom: 1rem;
+
+					legend {
+						font-size: 1.2rem;
+					}
+
+					label {
+						font-size: 1.2rem;
+					}
+
+					input[type="text"] {
+						font-size: 1rem;
+						padding: 0.25rem 0.5rem;
+					}
+
+					input[type="color"] {
+						padding: 0.1rem;
+						height: 1.8rem;
+					}
+				}
+
+				.buttonContainer {
+					justify-content: space-between;
+
+					button {
+						font-size: 1rem;
+						border-radius: 0 0 0 12px;
+					}
+				}
+			}
+		}
 	}
 }
